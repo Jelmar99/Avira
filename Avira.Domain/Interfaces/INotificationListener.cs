@@ -2,5 +2,5 @@
 
 public interface INotificationListener
 {
-    
+    void onNotification(Notification notification);
 }

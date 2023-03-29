@@ -9,7 +9,8 @@ public class BacklogItem
     private int SprintId { get; set; }
     private Sprint Sprint { get; set; }
     private List<Activity>? Activities { get; set; }
-    
+    private ICollection<INotificationListener> notificationListeners = new List<INotificationListener>(); // TODO: move to constructor
+
     public BacklogItem(Guid id, string name, string description, int storyPoints, int sprintId, Sprint sprint)
     {
         Id = id;
@@ -28,5 +29,19 @@ public class BacklogItem
     public void RemoveActivity(Activity activity)
     {
         Activities?.Remove(activity);
+    }
+
+    public void AddListener(INotificationListener listener)
+    {
+        notificationListeners.Add(listener);
+    }
+
+    //TODO: Make private 
+    public void SendNotification(Notification notification)
+    {
+        foreach (var notificationListener in notificationListeners)
+        {
+            notificationListener.onNotification(notification);
+        }
     }
 }
