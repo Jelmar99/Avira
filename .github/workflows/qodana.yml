@@ -1,7 +1,8 @@
 name: Qodana
 on:
-  push
-
+  push:
+    branches:
+    - master
 jobs:
   qodana:
     runs-on: ubuntu-latest
