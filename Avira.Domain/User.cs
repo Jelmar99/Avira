@@ -1,29 +1,35 @@
-﻿namespace Avira.Domain;
+﻿using Avira.Domain.Interfaces;
+using Avira.Domain.Notifications;
+
+namespace Avira.Domain;
 
 public class User : INotificationListener
 {
     private Guid Id { get; set; }
-    private string Name { get; set; }
+    public string Name { get; set; }
     private Role? Role { get; set; }
-    
+    public INotificationPreference NotificationPreference { get; set; }
+
     public User(Guid id, string name)
     {
         Id = id;
         Name = name;
+        NotificationPreference = new NotificationPreference();
     }
-    
+
     public void SetRole(Role? role)
     {
         Role = role;
     }
+
     public void RemoveRole()
     {
         Role = null;
     }
 
-    //TODO: Notification type? Email? Chat?
     public void onNotification(Notification notification)
     {
-        Console.WriteLine(Name + " got a notification for: " + notification.Message);
+        notification.recipient = this;
+        NotificationPreference.sendNotification(notification);
     }
 }
