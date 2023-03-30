@@ -22,4 +22,10 @@ public class Sprint
     {
         BacklogItems?.Remove(backlogItem);
     }
+
+    public void Deploy(Pipeline pipeline)
+    {
+        pipeline.SendNotification(new Notification("Deploying Sprint " + Id));
+        pipeline.Deploy();
+    }
 }

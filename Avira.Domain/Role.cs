@@ -1,6 +1,8 @@
 ﻿namespace Avira.Domain;
 
-public class Role
+public enum Role
 {
-    
+    Developer,
+    ScrumMaster,
+    ProductOwner
 }
