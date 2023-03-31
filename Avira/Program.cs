@@ -2,6 +2,7 @@
 
 using Avira.Domain;
 using Avira.Domain.Adapters;
+using Avira.Domain.Builder;
 using Avira.Domain.Notifications;
 
 Console.WriteLine("Hello, World!");
@@ -19,11 +20,6 @@ var u = new UserBuilder()
     .addNotificationPreference(NotificationPreferenceType.Slack)
     .addNotificationPreference(NotificationPreferenceType.WhatsApp)
     .Build();
-
-u.NotificationPreference = new WhatsAppNotificationPreferenceDecorator(u.NotificationPreference);
-u.NotificationPreference = new EmailNotificationPreferenceDecorator(u.NotificationPreference);
-u.NotificationPreference = new SlackNotificationPreferenceDecorator(u.NotificationPreference);
-
 
 var n = new Notification("A test notification!  :)");
 
