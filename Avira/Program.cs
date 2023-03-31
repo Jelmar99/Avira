@@ -48,5 +48,5 @@ var p = new Pipeline(s);
 p.AddListener(u);
 s.Deploy(p);
 
-var ex = new PlainTextExporter();
+var ex = new Exporter(new PlainTextExportStrategy());
 s.Accept(ex);

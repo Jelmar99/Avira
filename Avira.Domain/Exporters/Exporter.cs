@@ -1,10 +1,18 @@
-﻿namespace Avira.Domain;
+﻿using Avira.Domain.Interfaces;
 
-public class PlainTextExporter : IVisitor
+namespace Avira.Domain;
+
+public class Exporter : IVisitor
 {
+    public IExportStrategy ExportStrategy { get; set; }
+    
+    public Exporter(IExportStrategy exportStrategy)
+    {
+        ExportStrategy = exportStrategy;
+    }
     public void VisitSprint(Sprint sprint)
     {
-        Console.WriteLine("Sprint Time span from:  " + sprint.StartDate + " to " + sprint.EndDate);
+        ExportStrategy.ExportSprint(sprint);
         foreach (var item in sprint.BacklogItems)
         {
             item.Accept(this);
@@ -13,7 +21,7 @@ public class PlainTextExporter : IVisitor
 
     public void VisitBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("-BacklogItem: " + backlogItem.Name + ", with description: " + backlogItem.Description);
+        ExportStrategy.ExportBacklogItem(backlogItem);
         foreach (var comment in backlogItem.Comments)
         {
             comment.Accept(this);
@@ -27,11 +35,11 @@ public class PlainTextExporter : IVisitor
 
     public void VisitComment(Comment comment)
     {
-        Console.WriteLine("--Comment: " + comment.Text);
+        ExportStrategy.ExportComment(comment);
     }
 
     public void VisitActivity(Activity activity)
     {
-        Console.WriteLine("--Activity: " + activity.Name);
+        ExportStrategy.ExportActivity(activity);
     }
 }
