@@ -1,4 +1,6 @@
-﻿namespace Avira.Domain;
+﻿using Avira.Domain.Notifications;
+
+namespace Avira.Domain;
 
 public class Sprint
 {
@@ -21,5 +23,11 @@ public class Sprint
     public void RemoveBacklogItem(BacklogItem backlogItem)
     {
         BacklogItems?.Remove(backlogItem);
+    }
+
+    public void Deploy(Pipeline pipeline)
+    {
+        pipeline.SendNotification(new Notification("Deploying Sprint " + Id));
+        pipeline.Deploy();
     }
 }
