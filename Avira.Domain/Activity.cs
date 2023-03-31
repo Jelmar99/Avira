@@ -1,9 +1,11 @@
-﻿namespace Avira.Domain;
+﻿using Avira.Domain.Interfaces;
 
-public class Activity
+namespace Avira.Domain;
+
+public class Activity : IExport
 {
     private Guid Id { get; set; }
-    private string Name { get; set; }
+    public string Name { get; set; }
     private ProductBacklog ProductBacklog { get; set; }
     
     public Activity(Guid id, string name, ProductBacklog productBacklog)
@@ -11,5 +13,10 @@ public class Activity
         Id = id;
         Name = name;
         ProductBacklog = productBacklog;
+    }
+
+    public void Accept(IVisitor visitor)
+    {
+        visitor.VisitActivity(this);
     }
 }

@@ -1,24 +1,26 @@
-﻿using Avira.Domain.Notifications;
+﻿using Avira.Domain.Interfaces;
+using Avira.Domain.Notifications;
 
 namespace Avira.Domain;
 
-public class Sprint
+public class Sprint : IExport
 {
     private Guid Id { get; set; }
-    private DateTime StartDate { get; set; }
-    private DateTime EndDate { get; set; }
-    private List<BacklogItem>? BacklogItems { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public List<BacklogItem> BacklogItems { get; set; }
     
     public Sprint(Guid id, DateTime startDate, DateTime endDate)
     {
         Id = id;
         StartDate = startDate;
         EndDate = endDate;
+        BacklogItems = new List<BacklogItem>();
     }
     
     public void AddBacklogItem(BacklogItem backlogItem)
     {
-        BacklogItems?.Add(backlogItem);
+        BacklogItems.Add(backlogItem);
     }
     public void RemoveBacklogItem(BacklogItem backlogItem)
     {
@@ -29,5 +31,10 @@ public class Sprint
     {
         pipeline.SendNotification(new Notification("Deploying Sprint " + Id));
         pipeline.Deploy();
+    }
+
+    public void Accept(IVisitor visitor)
+    {
+        visitor.VisitSprint(this);
     }
 }

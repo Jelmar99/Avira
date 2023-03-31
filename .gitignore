@@ -5,3 +5,5 @@ riderModule.iml
 /_ReSharper.Caches/
 .idea/
 Avira.sln.DotSettings.user
+puml
+.config

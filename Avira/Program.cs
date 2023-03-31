@@ -25,6 +25,14 @@ a.SendNotification(n);
 
 var s = new Sprint(new Guid(), new DateTime(2023, 3, 30), new DateTime(2023, 4, 13));
 var pb = new ProductBacklog(new Guid(), s);
+var pbi = new BacklogItem(new Guid(), "test", "item about a test", 1, 1, s);
+var pbi2 = new BacklogItem(new Guid(), "andere test", "item about a andere test", 1, 1, s);
+s.AddBacklogItem(pbi);
+s.AddBacklogItem(pbi2);
+var activity = new Activity(new Guid(), "Maak de hele app", pb);
+var comment = new Comment(new Guid(), "Wat een mooie comment");
+pbi.AddActivity(activity);
+pbi.AddComment(comment);
 var p1 = new Project(new Guid(), pb, new GithubAdapter());
 var p2 = new Project(new Guid(), pb, new GitLabAdapter());
 var p3 = new Project(new Guid(), pb, new AWSCodeAdapter());
@@ -39,3 +47,6 @@ p5.Commit();
 var p = new Pipeline(s);
 p.AddListener(u);
 s.Deploy(p);
+
+var ex = new PlainTextExporter();
+s.Accept(ex);
