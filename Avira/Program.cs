@@ -7,20 +7,21 @@ using Avira.Domain.Notifications;
 Console.WriteLine("Hello, World!");
 
 var a = new BacklogItem(Guid.Empty, "", "", 0, 0, new Sprint(Guid.Empty, new DateTime(), new DateTime()));
-INotificationPreference notif = new NotificationPreference();
-notif = new WhatsAppNotificationPreferenceDecorator(notif);
-notif = new EmailNotificationPreferenceDecorator(notif);
-notif = new SlackNotificationPreferenceDecorator(notif);
 
 //var u = new User(new Guid(), "Bob");
 var u = new UserBuilder()
-    .setId(new Guid())
+    .setId(Guid.Empty)
     .setName("Bob")
-    .setNotificationPreference(notif)
+    .setEmail("Bob@company.com")
+    .setPhoneNr("06-87654321")
+    .setSlackUsername("@BobbyB")
+    .addNotificationPreference(NotificationPreferenceType.Email)
+    .addNotificationPreference(NotificationPreferenceType.Slack)
+    .addNotificationPreference(NotificationPreferenceType.WhatsApp)
     .Build();
 
 
 
-var n = new Notification("test notification :)");
+var n = new Notification("A test notification!  :)");
 a.AddListener(u);
 a.SendNotification(n);

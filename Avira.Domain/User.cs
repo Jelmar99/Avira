@@ -8,8 +8,7 @@ public class User : INotificationListener
     private Guid Id { get; set; }
     public string Name { get; private set; }
     private Role? Role { get; set; }
-    public INotificationPreference NotificationPreference { get; set; }
-
+    private INotificationPreference NotificationPreference { get; set; }
     public string Email { get; private set; }
     public string PhoneNr { get; private set; }
     public string SlackUsername { get; private set; }

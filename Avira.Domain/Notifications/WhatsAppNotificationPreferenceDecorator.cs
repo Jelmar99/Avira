@@ -9,6 +9,9 @@ public class WhatsAppNotificationPreferenceDecorator : BaseNotificationPreferenc
     public override void sendNotification(Notification notification)
     {
         base.sendNotification(notification);
-        Console.WriteLine($"Notification for {notification.recipient.Name}\tWhatsApp: '{notification.Message}'");
+        Console.WriteLine(
+            $"Notification for {notification.recipient.Name}\t" +
+            $"WhatsApp: '{notification.Message}'\t" +
+            $"To: {notification.recipient.PhoneNr}");
     }
 }

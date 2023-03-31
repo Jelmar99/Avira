@@ -9,6 +9,9 @@ public class SlackNotificationPreferenceDecorator : BaseNotificationPreferenceDe
     public override void sendNotification(Notification notification)
     {
         base.sendNotification(notification);
-        Console.WriteLine($"Notification for {notification.recipient.Name}\tSlack\t: '{notification.Message}'");
+        Console.WriteLine(
+            $"Notification for {notification.recipient.Name}\t" +
+            $"Slack\t: '{notification.Message}'\t" +
+            $"To: {notification.recipient.SlackUsername}");
     }
 }

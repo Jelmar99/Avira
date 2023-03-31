@@ -36,9 +36,15 @@ public class UserBuilder
         return this;
     }
 
-    public UserBuilder setNotificationPreference(INotificationPreference notificationPreference)
+    public UserBuilder addNotificationPreference(NotificationPreferenceType notificationPreferenceType)
     {
-        NotificationPreference = notificationPreference;
+        NotificationPreference = notificationPreferenceType switch
+        {
+            NotificationPreferenceType.Email => new EmailNotificationPreferenceDecorator(NotificationPreference),
+            NotificationPreferenceType.Slack => new SlackNotificationPreferenceDecorator(NotificationPreference),
+            NotificationPreferenceType.WhatsApp => new WhatsAppNotificationPreferenceDecorator(NotificationPreference),
+            _ => NotificationPreference
+        };
         return this;
     }
 
