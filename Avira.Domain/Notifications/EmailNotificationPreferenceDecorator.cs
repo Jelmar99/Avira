@@ -9,6 +9,9 @@ public class EmailNotificationPreferenceDecorator : BaseNotificationPreferenceDe
     public override void sendNotification(Notification notification)
     {
         base.sendNotification(notification);
-        Console.WriteLine($"Notification for {notification.recipient.Name}\tEmail\t: '{notification.Message}'");
+        Console.WriteLine(
+            $"Notification for {notification.recipient.Name}\t" +
+            $"Email\t: '{notification.Message}'\t" +
+            $"To: {notification.recipient.Email}");
     }
 }
