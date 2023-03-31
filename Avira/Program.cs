@@ -16,15 +16,13 @@ var u = new UserBuilder()
     .setEmail("Bob@company.com")
     .setPhoneNr("06-87654321")
     .setSlackUsername("@BobbyB")
+    .setRole(Role.Developer)
     .addNotificationPreference(NotificationPreferenceType.Email)
     .addNotificationPreference(NotificationPreferenceType.Slack)
     .addNotificationPreference(NotificationPreferenceType.WhatsApp)
     .Build();
 
 var n = new Notification("A test notification!  :)");
-
-u.SetRole(Role.Developer);
-
 a.AddListener(u);
 a.SendNotification(n);
 
