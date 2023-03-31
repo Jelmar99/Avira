@@ -48,5 +48,8 @@ var p = new Pipeline(s);
 p.AddListener(u);
 s.Deploy(p);
 
-var ex = new Exporter(new PlainTextExportStrategy());
-s.Accept(ex);
+var exPlain = new Exporter(new PlainTextExportStrategy());
+s.Accept(exPlain);
+
+var exJson = new Exporter(new JSONExportStrategy());
+s.Accept(exJson);

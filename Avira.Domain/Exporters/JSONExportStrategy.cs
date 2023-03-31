@@ -1,26 +1,31 @@
 ﻿using Avira.Domain.Interfaces;
+using Newtonsoft.Json;
 
 namespace Avira.Domain;
 
-public class JSONExporter : IExportStrategy
+public class JSONExportStrategy : IExportStrategy
 {
     public void ExportSprint(Sprint sprint)
     {
-        Console.WriteLine("Sprint Time span from:  " + sprint.StartDate + " to " + sprint.EndDate);
+        var output = JsonConvert.SerializeObject("Sprint Time span from:  " + sprint.StartDate + " to " + sprint.EndDate, Formatting.Indented);
+        Console.WriteLine(output);
     }
 
     public void ExportBacklogItem(BacklogItem backlogItem)
     {
-        Console.WriteLine("-BacklogItem: " + backlogItem.Name + ", with description: " + backlogItem.Description);
+        var output = JsonConvert.SerializeObject("-BacklogItem: " + backlogItem.Name + ", with description: " + backlogItem.Description, Formatting.Indented);
+        Console.WriteLine(output);
     }
 
     public void ExportComment(Comment comment)
     {
-        Console.WriteLine("--Comment: " + comment.Text);
+        var output = JsonConvert.SerializeObject("--Comment: " + comment.Text, Formatting.Indented);
+        Console.WriteLine(output);
     }
 
     public void ExportActivity(Activity activity)
     {
-        Console.WriteLine("--Activity: " + activity.Name);
+        var output = JsonConvert.SerializeObject("--Activity: " + activity.Name, Formatting.Indented);
+        Console.WriteLine(output);
     }
 }
