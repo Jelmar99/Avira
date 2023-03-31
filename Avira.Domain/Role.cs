@@ -3,6 +3,7 @@
 public enum Role
 {
     Developer,
+    Tester,
     ScrumMaster,
     ProductOwner
 }

@@ -1,4 +1,6 @@
-﻿namespace Avira.Domain;
+﻿using Avira.Domain.Notifications;
+
+namespace Avira.Domain;
 
 public class Sprint
 {

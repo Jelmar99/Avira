@@ -1,4 +1,7 @@
-﻿namespace Avira.Domain;
+﻿using Avira.Domain.Interfaces;
+using Avira.Domain.Notifications;
+
+namespace Avira.Domain;
 
 public class Pipeline
 {
