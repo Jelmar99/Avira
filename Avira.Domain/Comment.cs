@@ -18,7 +18,7 @@ public class Comment : IExport
     }
     public void ReplyToComment(Comment comment)
     {
-        if (BacklogItem._phase != BacklogItemPhase.Done)
+        if (BacklogItem.Phase != BacklogItemPhase.Done)
         {
             Replies.Add(comment);
         }

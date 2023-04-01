@@ -6,7 +6,7 @@ using Avira.Domain.Notifications;
 namespace Avira.Test;
 
 [TestFixture]
-public class OrderUnitTests
+public class BacklogItemTest
 {
     private User _dev1;
     private User _dev2;

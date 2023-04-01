@@ -65,7 +65,7 @@ var pbi = new BacklogItem(Guid.NewGuid(), "test", "item about a test", 1, 3, s, 
 var pbi2 = new BacklogItem(Guid.NewGuid(), "andere test", "item about a andere test", 1, 10, s, devUser, testUser);
 s.AddBacklogItem(pbi);
 s.AddBacklogItem(pbi2);
-var activity = new Activity(new Guid(), "Maak de hele app", pb);
+var activity = new Activity(new Guid(), "Maak de hele app");
 var comment = new Comment(new Guid(), "Wat een mooie comment", pbi);
 var reply = new Comment(new Guid(), "wat een stomme actie", pbi);
 comment.ReplyToComment(reply);

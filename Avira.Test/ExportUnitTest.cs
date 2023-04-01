@@ -32,16 +32,25 @@ public class ExportUnitTest
             .addNotificationPreference(NotificationPreferenceType.Email)
             .addNotificationPreference(NotificationPreferenceType.Slack)
             .Build();
+        
+        var scrumMaster = new UserBuilder()
+            .setId(Guid.NewGuid())
+            .setName("Master")
+            .setEmail("Master@company.com")
+            .setSlackUsername("@Master")
+            .setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack)
+            .Build();
 
         var listDev = new List<User> { devUser };
-        var s = new Sprint(new Guid(), "sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev);
+        var s = new Sprint(new Guid(), "sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev, scrumMaster);
         var pb = new ProductBacklog(new Guid(), s);
         var pbi = new BacklogItem(Guid.NewGuid(), "test", "item about a test", 1, 3, s, devUser, testUser);
         var pbi2 = new BacklogItem(Guid.NewGuid(), "andere test", "item about a andere test", 1, 10, s, devUser,
             testUser);
         s.AddBacklogItem(pbi);
         s.AddBacklogItem(pbi2);
-        var activity = new Activity(new Guid(), "Maak de hele app", pb);
+        var activity = new Activity(new Guid(), "Maak de hele app");
         var comment = new Comment(new Guid(), "Wat een mooie comment", pbi);
         var reply = new Comment(new Guid(), "wat een stomme actie", pbi);
         comment.ReplyToComment(reply);
@@ -80,7 +89,7 @@ public class ExportUnitTest
             .addNotificationPreference(NotificationPreferenceType.Email)
             .addNotificationPreference(NotificationPreferenceType.Slack)
             .Build();
-        var productOwner = new UserBuilder()
+        var productOwner = new UserBuilder() //TODO: Niet gebruikt?
             .setId(Guid.NewGuid())
             .setName("Piet")
             .setEmail("Piet@mail.com")
@@ -91,15 +100,24 @@ public class ExportUnitTest
             .addNotificationPreference(NotificationPreferenceType.Slack)
             .addNotificationPreference(NotificationPreferenceType.WhatsApp)
             .Build();
+        
+        var scrumMaster = new UserBuilder()
+            .setId(Guid.NewGuid())
+            .setName("Master")
+            .setEmail("Master@company.com")
+            .setSlackUsername("@Master")
+            .setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack)
+            .Build();
 
         var listDev = new List<User> { devUser };
-        var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev);
+        var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev, scrumMaster);
         var pb = new ProductBacklog(new Guid(), s);
         var pbi = new BacklogItem(Guid.NewGuid(), "test", "item about a test", 1, 3, s, devUser, testUser);
         var pbi2 = new BacklogItem(Guid.NewGuid(), "andere test", "item about a andere test", 1, 10, s, devUser, testUser);
         s.AddBacklogItem(pbi);
         s.AddBacklogItem(pbi2);
-        var activity = new Activity(new Guid(), "Maak de hele app", pb);
+        var activity = new Activity(new Guid(), "Maak de hele app");
         var comment = new Comment(new Guid(), "Wat een mooie comment", pbi);
         var reply = new Comment(new Guid(), "wat een stomme actie", pbi);
         comment.ReplyToComment(reply);

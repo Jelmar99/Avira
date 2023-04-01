@@ -13,7 +13,9 @@ public class SprintUnitTest
        var devUser = new UserBuilder().setId(Guid.NewGuid()).setName("Bob").setEmail("Bob@company.com").setPhoneNr("06-87654321").setSlackUsername("@BobbyB").setRole(Role.Developer)
            .addNotificationPreference(NotificationPreferenceType.Email).addNotificationPreference(NotificationPreferenceType.Slack).addNotificationPreference(NotificationPreferenceType.WhatsApp).Build();
        var listDev = new List<User>{devUser};
-       var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev);
+       var scrumMaster = new UserBuilder().setId(Guid.NewGuid()).setName("Master").setEmail("Master@company.com").setSlackUsername("@Master").setRole(Role.ScrumMaster)
+           .addNotificationPreference(NotificationPreferenceType.Slack).Build();
+       var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev, scrumMaster);
        //Act
        sprint.IsRelease = true;
        //Assert
@@ -27,7 +29,9 @@ public class SprintUnitTest
         var devUser = new UserBuilder().setId(Guid.NewGuid()).setName("Bob").setEmail("Bob@company.com").setPhoneNr("06-87654321").setSlackUsername("@BobbyB").setRole(Role.Developer)
             .addNotificationPreference(NotificationPreferenceType.Email).addNotificationPreference(NotificationPreferenceType.Slack).addNotificationPreference(NotificationPreferenceType.WhatsApp).Build();
         var listDev = new List<User>{devUser};
-        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev);
+        var scrumMaster = new UserBuilder().setId(Guid.NewGuid()).setName("Master").setEmail("Master@company.com").setSlackUsername("@Master").setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack).Build();
+        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev, scrumMaster);
         //Act
         sprint.SetName("Sprint 2");
         sprint.SetStartDate(new DateTime(2023, 4,20));
@@ -53,7 +57,9 @@ public class SprintUnitTest
             .addNotificationPreference(NotificationPreferenceType.Slack)
             .addNotificationPreference(NotificationPreferenceType.WhatsApp).Build();
         var listDev = new List<User> { devUser };
-        var sprint = new Sprint(new Guid(), "sprint 1", new DateTime(2023, 2, 10), new DateTime(2023, 3, 12), listDev);
+        var scrumMaster = new UserBuilder().setId(Guid.NewGuid()).setName("Master").setEmail("Master@company.com").setSlackUsername("@Master").setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack).Build();
+        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 2, 10), new DateTime(2023, 3, 12), listDev, scrumMaster);
         sprint.CheckIfFinished();
 
         //Assert
@@ -76,7 +82,9 @@ public class SprintUnitTest
             .addNotificationPreference(NotificationPreferenceType.Slack)
             .addNotificationPreference(NotificationPreferenceType.WhatsApp).Build();
         var listDev = new List<User> { devUser };
-        var sprint = new Sprint(new Guid(), "sprint 1", new DateTime(2023, 6, 10), new DateTime(2023, 7, 12), listDev);
+        var scrumMaster = new UserBuilder().setId(Guid.NewGuid()).setName("Master").setEmail("Master@company.com").setSlackUsername("@Master").setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack).Build();
+        var sprint = new Sprint(new Guid(), "sprint 1", new DateTime(2023, 6, 10), new DateTime(2023, 7, 12), listDev, scrumMaster);
         //Act
         sprint.SetStatus(Status.Finished);
         //Assert
@@ -92,7 +100,9 @@ public class SprintUnitTest
             .addNotificationPreference(NotificationPreferenceType.Slack)
             .addNotificationPreference(NotificationPreferenceType.WhatsApp).Build();
         var listDev = new List<User> { devUser };
-        var sprint = new Sprint(new Guid(), "sprint 1", new DateTime(2023, 6, 10), new DateTime(2023, 7, 12), listDev);
+        var scrumMaster = new UserBuilder().setId(Guid.NewGuid()).setName("Master").setEmail("Master@company.com").setSlackUsername("@Master").setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack).Build();
+        var sprint = new Sprint(new Guid(), "sprint 1", new DateTime(2023, 6, 10), new DateTime(2023, 7, 12), listDev, scrumMaster);
         //Act
         sprint.SetStatus(Status.Ongoing);
         //Assert
@@ -108,7 +118,9 @@ public class SprintUnitTest
             .addNotificationPreference(NotificationPreferenceType.Slack)
             .addNotificationPreference(NotificationPreferenceType.WhatsApp).Build();
         var listDev = new List<User> { devUser };
-        var sprint = new Sprint(new Guid(), "sprint 1", new DateTime(2023, 6, 10), new DateTime(2023, 7, 12), listDev);
+        var scrumMaster = new UserBuilder().setId(Guid.NewGuid()).setName("Master").setEmail("Master@company.com").setSlackUsername("@Master").setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack).Build();
+        var sprint = new Sprint(new Guid(), "sprint 1", new DateTime(2023, 6, 10), new DateTime(2023, 7, 12), listDev, scrumMaster);
         //Act
         sprint.SetStatus(Status.NotYetStarted);
         //Assert
@@ -124,8 +136,9 @@ public class SprintUnitTest
         var startDate = DateTime.Now.AddDays(-14);
         var endDate = DateTime.Now.AddDays(-7);
         var developers = new List<User>();
-
-        var sprint = new Sprint(sprintId, sprintName, startDate, endDate, developers);
+        var scrumMaster = new UserBuilder().setId(Guid.NewGuid()).setName("Master").setEmail("Master@company.com").setSlackUsername("@Master").setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack).Build();
+        var sprint = new Sprint(sprintId, sprintName, startDate, endDate, developers, scrumMaster);
 
         // Act
         sprint.CheckIfFinished();
@@ -155,8 +168,8 @@ public class SprintUnitTest
             .addNotificationPreference(NotificationPreferenceType.WhatsApp)
             .Build();
 
-        var sprint = new Sprint(sprintId, sprintName, startDate, endDate, developers);
-        sprint.ScrumMaster = scrumMaster;
+        var sprint = new Sprint(sprintId, sprintName, startDate, endDate, developers, scrumMaster);
+        //TODO sprint.ScrumMaster = scrumMaster;
         sprint.CheckIfFinished();
 
         // Act
@@ -187,7 +200,10 @@ public class SprintUnitTest
             .addNotificationPreference(NotificationPreferenceType.WhatsApp)
             .Build();
         
-        var sprint = new Sprint(sprintId, sprintName, startDate, endDate, developers);
+        var scrumMaster = new UserBuilder().setId(Guid.NewGuid()).setName("Master").setEmail("Master@company.com").setSlackUsername("@Master").setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack).Build();
+        
+        var sprint = new Sprint(sprintId, sprintName, startDate, endDate, developers, scrumMaster);
         sprint.CheckIfFinished();
 
         // Act & Assert
@@ -203,7 +219,9 @@ public class SprintUnitTest
             .addNotificationPreference(NotificationPreferenceType.Slack)
             .addNotificationPreference(NotificationPreferenceType.WhatsApp).Build();
         var listDev = new List<User> { devUser };
-        var sprint = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev);
+        var scrumMaster = new UserBuilder().setId(Guid.NewGuid()).setName("Master").setEmail("Master@company.com").setSlackUsername("@Master").setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack).Build();
+        var sprint = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev, scrumMaster);
         var p = new Pipeline(sprint);
         using var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);

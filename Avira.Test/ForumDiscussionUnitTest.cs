@@ -33,7 +33,16 @@ public class ForumDiscussionUnitTest
             .Build();
         var listDev = new List<User>{devUser};
         
-        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev);
+        var scrumMaster = new UserBuilder()
+            .setId(Guid.NewGuid())
+            .setName("Master")
+            .setEmail("Master@company.com")
+            .setSlackUsername("@Master")
+            .setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack)
+            .Build();
+        
+        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev, scrumMaster);
         var backlogItem = new BacklogItem(Guid.NewGuid(), "Test Backlog Item", "Description", 5, 2, sprint, devUser, testUser);
         var comment = new Comment(Guid.NewGuid(), "This is a comment",backlogItem);
 
@@ -70,7 +79,16 @@ public class ForumDiscussionUnitTest
             .Build();
         var listDev = new List<User>{devUser};
         
-        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev);
+        var scrumMaster = new UserBuilder()
+            .setId(Guid.NewGuid())
+            .setName("Master")
+            .setEmail("Master@company.com")
+            .setSlackUsername("@Master")
+            .setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack)
+            .Build();
+        
+        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev, scrumMaster);
         var backlogItem = new BacklogItem(Guid.NewGuid(), "Test Backlog Item", "Description", 5, 2, sprint, devUser, testUser);
         var comment = new Comment(Guid.NewGuid(), "This is a comment",backlogItem);
 
@@ -107,7 +125,16 @@ public class ForumDiscussionUnitTest
             .Build();
         var listDev = new List<User>{devUser};
         
-        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev);
+        var scrumMaster = new UserBuilder()
+            .setId(Guid.NewGuid())
+            .setName("Master")
+            .setEmail("Master@company.com")
+            .setSlackUsername("@Master")
+            .setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack)
+            .Build();
+
+        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev, scrumMaster);
         var backlogItem = new BacklogItem(Guid.NewGuid(), "Test Backlog Item", "Description", 5, 2, sprint, devUser, testUser);
         var comment = new Comment(Guid.NewGuid(), "This is a comment", backlogItem);
         var reply = new Comment(Guid.NewGuid(), "This is a reply", backlogItem);
@@ -146,7 +173,16 @@ public class ForumDiscussionUnitTest
             .Build();
         var listDev = new List<User>{devUser};
         
-        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev);
+        var scrumMaster = new UserBuilder()
+            .setId(Guid.NewGuid())
+            .setName("Master")
+            .setEmail("Master@company.com")
+            .setSlackUsername("@Master")
+            .setRole(Role.ScrumMaster)
+            .addNotificationPreference(NotificationPreferenceType.Slack)
+            .Build();
+        
+        var sprint = new Sprint(new Guid(),"sprint 1", new DateTime(2023, 4, 10), new DateTime(2023, 5, 12), listDev, scrumMaster);
         var backlogItem = new BacklogItem(Guid.NewGuid(), "Test Backlog Item", "Description", 3, 2, sprint, devUser, testUser);
 
         var comment1 = new Comment(Guid.NewGuid(), "Test Comment 1", backlogItem);
