@@ -16,7 +16,7 @@ public class BacklogItem : IExport
 
     private readonly ICollection<INotificationListener> _notificationListeners;
 
-    private BacklogItemPhase _phase;
+    public BacklogItemPhase _phase { get; private set; }
 
     private User Developer;
 
