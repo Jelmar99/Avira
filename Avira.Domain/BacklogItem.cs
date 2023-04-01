@@ -16,9 +16,9 @@ public class BacklogItem : IExport
 
     private readonly ICollection<INotificationListener> _notificationListeners;
 
-    private BacklogItemPhase _phase;
+    public BacklogItemPhase Phase;
 
-    private User Developer;
+    public User Developer;
 
     private User Tester;
 
@@ -48,17 +48,16 @@ public class BacklogItem : IExport
         Comments = new List<Comment>();
         _notificationListeners = new List<INotificationListener>();
 
-        _phase = BacklogItemPhase.Todo; // Default Phase is "To do"
+        Phase = BacklogItemPhase.Todo; // Default Phase is "To do"
     }
 
     public void UpdatePhase(BacklogItemPhase newPhase, User updatedBy)
     {
         // Before Update Checks
-        if (newPhase == _phase)
+        if (newPhase == Phase)
         {
             throw new Exception("This Backlog Item already has this phase.");
         }
-
 
         if (newPhase == BacklogItemPhase.Done)
         {
@@ -80,20 +79,20 @@ public class BacklogItem : IExport
         // Reverting the Phase to the previous Phase "Doing" is not allowed. 
         if (newPhase == BacklogItemPhase.Doing)
         {
-            if (_phase != BacklogItemPhase.Todo)
+            if (Phase != BacklogItemPhase.Todo)
             {
                 throw new Exception("The Phase of a Backlog Item is not allowed to be set back to 'Doing'");
             }
         }
 
         // Update Phase
-        _phase = newPhase;
+        Phase = newPhase;
 
         // After Update Triggers
         if (newPhase == BacklogItemPhase.Todo)
         {
             var notification =
-                new Notification($"An existing Backlog Item's Phase has been reverted to 'Todo': {Name}, ({Id})");
+                new Notification($"An existing Backlog Item's Phase has been reverted to 'Todo': {Name}, ({Id}) by {updatedBy.Name}");
             Sprint.ScrumMaster.onNotification(notification);
         }
 
@@ -124,7 +123,7 @@ public class BacklogItem : IExport
 
     public void AddComment(Comment comment)
     {
-        if (_phase != BacklogItemPhase.Done)
+        if (Phase != BacklogItemPhase.Done)
         {
             Comments.Add(comment);
         }
