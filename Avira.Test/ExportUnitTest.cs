@@ -104,12 +104,23 @@ public class ExportUnitTest
             .Build();
 
         var listDev = new List<User> { devUser };
-        var s = new Sprint(new Guid(), "sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev);
+        var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev);
+        var pb = new ProductBacklog(new Guid(), s);
+        var pbi = new BacklogItem(Guid.NewGuid(), "test", "item about a test", 1, 3, s, devUser, testUser);
+        var pbi2 = new BacklogItem(Guid.NewGuid(), "andere test", "item about a andere test", 1, 10, s, devUser, testUser);
+        s.AddBacklogItem(pbi);
+        s.AddBacklogItem(pbi2);
+        var activity = new Activity(new Guid(), "Maak de hele app", pb);
+        var comment = new Comment(new Guid(), "Wat een mooie comment", pbi);
+        var reply = new Comment(new Guid(), "wat een stomme actie", pbi);
+        comment.ReplyToComment(reply);
+        pbi.AddActivity(activity);
+        pbi.AddComment(comment);
         var exJson = new Exporter(new JSONExportStrategy());
         //Arrange
         var exportString = s.Accept(exJson);
 
         //Assert
-        Assert.That(exportString, Is.EqualTo(exportString));
+        Assert.That(exportString, Is.EqualTo("\"Sprint Time span from:  2-4-2023 00:00:00 to 13-4-2023 00:00:00\"\n\"-BacklogItem: andere test, with description: item about a andere test\"\n\"-BacklogItem: test, with description: item about a test\"\n\"--Comment: Wat een mooie comment\"\n\"--Comment: wat een stomme actie\"\n\"--Activity: Maak de hele app\""));
     }
 }
