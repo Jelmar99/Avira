@@ -9,7 +9,7 @@ public class Sprint : IExport
     public string Name { get; private set; }
     public DateTime StartDate { get; private set; }
     public DateTime EndDate { get; private set; }
-    public List<BacklogItem> BacklogItems { get;}
+    public List<BacklogItem> BacklogItems;
     public User ScrumMaster { get; set; }
     public List<User> Developers { get; set; }
     public bool IsRelease { get; set; } = false;
@@ -79,6 +79,11 @@ public class Sprint : IExport
         {
             throw new Exception("You can't change the end date of a sprint that has already started.");
         }
+    }
+
+    public List<BacklogItem> GetBacklogItems()
+    {
+        return BacklogItems.OrderByDescending(item => item.Weight).ToList();
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
