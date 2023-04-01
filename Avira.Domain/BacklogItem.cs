@@ -143,8 +143,8 @@ public class BacklogItem : IExport
         }
     }
 
-    public void Accept(IVisitor visitor)
+    public string Accept(IVisitor visitor)
     {
-        visitor.VisitBacklogItem(this);
+        return visitor.VisitBacklogItem(this);
     }
 }

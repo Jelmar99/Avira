@@ -131,8 +131,8 @@ public class Sprint : IExport
     }
 
     // Visitor Pattern
-    public void Accept(IVisitor visitor)
+    public string Accept(IVisitor visitor)
     {
-        visitor.VisitSprint(this);
+        return visitor.VisitSprint(this);
     }
 }

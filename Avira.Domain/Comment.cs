@@ -28,8 +28,8 @@ public class Comment : IExport
         }
     }
 
-    public void Accept(IVisitor visitor)
+    public string Accept(IVisitor visitor)
     {
-        visitor.VisitComment(this);
+        return visitor.VisitComment(this);
     }
 }

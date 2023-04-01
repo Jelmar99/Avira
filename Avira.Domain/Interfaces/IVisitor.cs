@@ -3,9 +3,9 @@
 // This is the Visitor interface -> Visitor Pattern
 public interface IVisitor
 {
-    void VisitSprint(Sprint sprint);
-    void VisitBacklogItem(BacklogItem backlogItem);
-    void VisitComment(Comment comment);
-    void VisitActivity(Activity activity);
-    void VisitProductBacklog(ProductBacklog productBacklog);
+    string VisitSprint(Sprint sprint);
+    string VisitBacklogItem(BacklogItem backlogItem);
+    string VisitComment(Comment comment);
+    string VisitActivity(Activity activity);
+    string VisitProductBacklog(ProductBacklog productBacklog);
 }

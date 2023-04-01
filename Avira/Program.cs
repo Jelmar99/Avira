@@ -77,7 +77,7 @@ p.AddListener(devUser);
 s.Deploy();
 
 var exPlain = new Exporter(new PlainTextExportStrategy());
-s.Accept(exPlain);
+Console.WriteLine(s.Accept(exPlain));
 
 var exJson = new Exporter(new JSONExportStrategy());
-s.Accept(exJson);
+Console.WriteLine(s.Accept(exJson));

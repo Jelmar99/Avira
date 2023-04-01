@@ -32,8 +32,8 @@ public class ProductBacklog : IExport
         }
     }
 
-    public void Accept(IVisitor visitor)
+    public string Accept(IVisitor visitor)
     {
-        visitor.VisitProductBacklog(this);
+        return visitor.VisitProductBacklog(this);
     }
 }

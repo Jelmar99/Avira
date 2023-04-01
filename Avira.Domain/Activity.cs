@@ -18,8 +18,8 @@ public class Activity : IExport
         Done = false;
     }
 
-    public void Accept(IVisitor visitor)
+    public string Accept(IVisitor visitor)
     {
-        visitor.VisitActivity(this);
+        return visitor.VisitActivity(this);
     }
 }
