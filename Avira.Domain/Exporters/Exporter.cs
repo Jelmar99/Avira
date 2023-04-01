@@ -47,5 +47,9 @@ public class Exporter : IVisitor
     public void VisitProductBacklog(ProductBacklog productBacklog)
     {
         ExportStrategy.ExportProductBacklog(productBacklog);
+        foreach (var item in productBacklog.GetBacklogItems())
+        {
+            item.Accept(this);
+        }
     }
 }

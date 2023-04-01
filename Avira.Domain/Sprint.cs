@@ -34,8 +34,12 @@ public class Sprint : IExport
             Status = Status.Finished;
         }
     }
-    public void InitializeRelease(Pipeline pipeline)
+    public void InitializeRelease(User updatedBy)
     {
+        if (updatedBy.Role != Role.ScrumMaster)
+        {
+            throw new Exception("You must be a Scrum Master to initialize a Release.");
+        }
         IsRelease = true; // There should be a check if the user that calls this method is the scrum master, but since we dont have login functionality, we will skip this check.
         if (Status == Status.Finished && IsRelease)
         {
@@ -92,6 +96,10 @@ public class Sprint : IExport
         {
             BacklogItems.Add(backlogItem);
         }
+        else
+        {
+            throw new Exception("You can't add a backlog item to a sprint that has already started.");
+        }
     }
 
     public void RemoveBacklogItem(BacklogItem backlogItem)
@@ -99,6 +107,10 @@ public class Sprint : IExport
         if (DateTime.Now < StartDate)
         {
             BacklogItems.Remove(backlogItem);
+        }
+        else
+        {
+            throw new Exception("You can't remove a backlog item from a sprint that has already started.");
         }
     }
 

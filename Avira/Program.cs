@@ -29,7 +29,7 @@ var testUser = new UserBuilder()
     .addNotificationPreference(NotificationPreferenceType.Slack)
     .Build();
 
-var a = new BacklogItem(Guid.NewGuid(), "", "", 0, 0, new Sprint(Guid.NewGuid(), new DateTime(), new DateTime()),
+var a = new BacklogItem(Guid.NewGuid(), "", "", 0, 0, new Sprint(Guid.NewGuid(),"sprint1", new DateTime(), new DateTime()),
     devUser, testUser);
 var n = new Notification("A test notification!  :)");
 a.AddListener(devUser);
