@@ -2,6 +2,7 @@
 
 namespace Avira.Domain;
 
+//Strategy for choosing which export --> Strategy pattern
 public class Exporter : IVisitor
 {
     public IExportStrategy ExportStrategy { get; set; }

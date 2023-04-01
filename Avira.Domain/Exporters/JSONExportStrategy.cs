@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Avira.Domain;
 
+// Strategy Pattern
 public class JSONExportStrategy : IExportStrategy
 {
     public void ExportSprint(Sprint sprint)

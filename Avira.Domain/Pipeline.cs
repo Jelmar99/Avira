@@ -22,8 +22,9 @@ public class Pipeline
         foreach (var phase in PipelinePhases)
         {
             Console.WriteLine(
-                $"Executing Phase {phase}\tSprint " +
-                $"{Sprint.StartDate.ToShortDateString()} / {Sprint.EndDate.ToShortDateString()}");
+                $"Executing Phase {phase}\tSprint: " +
+                $"{Sprint.Name} " +
+                $"running from {Sprint.StartDate.ToShortDateString()} to {Sprint.EndDate.ToShortDateString()}");
         }
     }
 

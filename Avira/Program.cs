@@ -26,7 +26,7 @@ var n = new Notification("A test notification!  :)");
 a.AddListener(u);
 a.SendNotification(n);
 
-var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 3, 30), new DateTime(2023, 4, 13));
+var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13));
 var pb = new ProductBacklog(new Guid(), s);
 var pbi = new BacklogItem(new Guid(), "test", "item about a test", 1, 1, s);
 var pbi2 = new BacklogItem(new Guid(), "andere test", "item about a andere test", 1, 1, s);
@@ -49,12 +49,11 @@ p5.Commit();
 
 var p = new Pipeline(s);
 p.AddListener(u);
-s.Deploy(p);
+// s.Deploy();
 
 var exPlain = new Exporter(new PlainTextExportStrategy());
 s.Accept(exPlain);
 
-var exJson = new Exporter(new JSONExportStrategy());
-s.Accept(exJson);
+// var exJson = new Exporter(new JSONExportStrategy());
+// s.Accept(exJson);
 
-pb.Accept(exJson);

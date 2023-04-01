@@ -1,5 +1,6 @@
 ﻿namespace Avira.Domain;
 
+// This is the Visitor interface -> Visitor Pattern
 public interface IVisitor
 {
     void VisitSprint(Sprint sprint);

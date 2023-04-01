@@ -33,6 +33,14 @@ public class BacklogItem : IExport
     {
         Activities.Add(activity);
     }
+    
+    public void RemoveActivity(Activity activity)
+    {
+        if (Activities.Count >= 0)
+        {
+            Activities.Remove(activity);
+        }
+    }
 
     public void AddListener(INotificationListener listener)
     {

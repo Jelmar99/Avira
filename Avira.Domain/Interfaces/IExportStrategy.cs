@@ -1,5 +1,6 @@
 ﻿namespace Avira.Domain.Interfaces;
 
+//Visitor pattern combined with strategy pattern
 public interface IExportStrategy
 {
     void ExportSprint(Sprint sprint);
