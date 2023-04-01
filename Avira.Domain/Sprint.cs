@@ -9,7 +9,11 @@ public class Sprint : IExport
     public DateTime StartDate { get; }
     public DateTime EndDate { get; }
     public List<BacklogItem> BacklogItems { get; }
-    
+
+    public User ScrumMaster { get; set; }
+
+    public List<User> Developers { get; set; }
+
     public Sprint(Guid id, DateTime startDate, DateTime endDate)
     {
         Id = id;
@@ -17,11 +21,12 @@ public class Sprint : IExport
         EndDate = endDate;
         BacklogItems = new List<BacklogItem>();
     }
-    
+
     public void AddBacklogItem(BacklogItem backlogItem)
     {
         BacklogItems.Add(backlogItem);
     }
+
     public void RemoveBacklogItem(BacklogItem backlogItem)
     {
         BacklogItems.Remove(backlogItem);
