@@ -7,11 +7,8 @@ using Avira.Domain.Notifications;
 
 Console.WriteLine("Hello, World!");
 
-var a = new BacklogItem(Guid.Empty, "", "", 0, 0, new Sprint(Guid.Empty, new DateTime(), new DateTime()));
-
-//var u = new User(new Guid(), "Bob");
-var u = new UserBuilder()
-    .setId(Guid.Empty)
+var devUser = new UserBuilder()
+    .setId(Guid.NewGuid())
     .setName("Bob")
     .setEmail("Bob@company.com")
     .setPhoneNr("06-87654321")
@@ -22,14 +19,26 @@ var u = new UserBuilder()
     .addNotificationPreference(NotificationPreferenceType.WhatsApp)
     .Build();
 
+var testUser = new UserBuilder()
+    .setId(Guid.NewGuid())
+    .setName("Kees")
+    .setEmail("Kees@company.com")
+    .setSlackUsername("@KeesP")
+    .setRole(Role.Tester)
+    .addNotificationPreference(NotificationPreferenceType.Email)
+    .addNotificationPreference(NotificationPreferenceType.Slack)
+    .Build();
+
+var a = new BacklogItem(Guid.NewGuid(), "", "", 0, 0, new Sprint(Guid.NewGuid(), new DateTime(), new DateTime()),
+    devUser, testUser);
 var n = new Notification("A test notification!  :)");
-a.AddListener(u);
+a.AddListener(devUser);
 a.SendNotification(n);
 
 var s = new Sprint(new Guid(), new DateTime(2023, 3, 30), new DateTime(2023, 4, 13));
 var pb = new ProductBacklog(new Guid(), s);
-var pbi = new BacklogItem(new Guid(), "test", "item about a test", 1, 1, s);
-var pbi2 = new BacklogItem(new Guid(), "andere test", "item about a andere test", 1, 1, s);
+var pbi = new BacklogItem(Guid.NewGuid(), "test", "item about a test", 1, 3, s, devUser, testUser);
+var pbi2 = new BacklogItem(Guid.NewGuid(), "andere test", "item about a andere test", 1, 10, s, devUser, testUser);
 s.AddBacklogItem(pbi);
 s.AddBacklogItem(pbi2);
 var activity = new Activity(new Guid(), "Maak de hele app", pb);
@@ -48,7 +57,7 @@ p4.Commit();
 p5.Commit();
 
 var p = new Pipeline(s);
-p.AddListener(u);
+p.AddListener(devUser);
 s.Deploy(p);
 
 var exPlain = new Exporter(new PlainTextExportStrategy());

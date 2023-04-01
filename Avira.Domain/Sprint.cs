@@ -8,8 +8,7 @@ public class Sprint : IExport
     private Guid Id { get; }
     public DateTime StartDate { get; }
     public DateTime EndDate { get; }
-    public List<BacklogItem> BacklogItems { get; }
-
+    public List<BacklogItem> BacklogItems;
     public User ScrumMaster { get; set; }
 
     public List<User> Developers { get; set; }
@@ -20,6 +19,11 @@ public class Sprint : IExport
         StartDate = startDate;
         EndDate = endDate;
         BacklogItems = new List<BacklogItem>();
+    }
+
+    public List<BacklogItem> GetBacklogItems()
+    {
+        return BacklogItems.OrderByDescending(item => item.Weight).ToList();
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)

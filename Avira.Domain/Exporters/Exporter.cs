@@ -13,7 +13,7 @@ public class Exporter : IVisitor
     public void VisitSprint(Sprint sprint)
     {
         ExportStrategy.ExportSprint(sprint);
-        foreach (var item in sprint.BacklogItems)
+        foreach (var item in sprint.GetBacklogItems())
         {
             item.Accept(this);
         }
