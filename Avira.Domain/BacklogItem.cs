@@ -124,7 +124,14 @@ public class BacklogItem : IExport
 
     public void AddComment(Comment comment)
     {
-        Comments.Add(comment);
+        if (_phase != BacklogItemPhase.Done)
+        {
+            Comments.Add(comment);
+        }
+        else
+        {
+            throw new Exception("You can't add a comment to a Backlog Item that is already Done.");
+        }
     }
 
     // Is only public to use in Program.cs as demonstration.
