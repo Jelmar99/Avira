@@ -16,7 +16,7 @@ public class BacklogItem : IExport
 
     private readonly ICollection<INotificationListener> _notificationListeners;
 
-    public BacklogItemPhase Phase;
+    public BacklogItemPhase Phase { get; private set; }
 
     public User Developer;
 
@@ -142,8 +142,8 @@ public class BacklogItem : IExport
         }
     }
 
-    public void Accept(IVisitor visitor)
+    public string Accept(IVisitor visitor)
     {
-        visitor.VisitBacklogItem(this);
+        return visitor.VisitBacklogItem(this);
     }
 }

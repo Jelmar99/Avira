@@ -65,9 +65,9 @@ var pbi = new BacklogItem(Guid.NewGuid(), "test", "item about a test", 1, 3, s, 
 var pbi2 = new BacklogItem(Guid.NewGuid(), "andere test", "item about a andere test", 1, 10, s, devUser, testUser);
 s.AddBacklogItem(pbi);
 s.AddBacklogItem(pbi2);
-var activity = new Activity(new Guid(), "Maak de hele app");
-var comment = new Comment(new Guid(), "Wat een mooie comment");
-var reply = new Comment(new Guid(), "wat een stomme actie");
+var activity = new Activity(new Guid(), "Maak de hele app", pb);
+var comment = new Comment(new Guid(), "Wat een mooie comment", pbi);
+var reply = new Comment(new Guid(), "wat een stomme actie", pbi);
 comment.ReplyToComment(reply);
 pbi.AddActivity(activity);
 pbi.AddComment(comment);
@@ -87,7 +87,7 @@ p.AddListener(devUser);
 s.Deploy();
 
 var exPlain = new Exporter(new PlainTextExportStrategy());
-s.Accept(exPlain);
+Console.WriteLine(s.Accept(exPlain));
 
 var exJson = new Exporter(new JSONExportStrategy());
-s.Accept(exJson);
+Console.WriteLine(s.Accept(exJson));
