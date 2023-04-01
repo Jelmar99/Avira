@@ -28,14 +28,28 @@ var testUser = new UserBuilder()
     .addNotificationPreference(NotificationPreferenceType.Email)
     .addNotificationPreference(NotificationPreferenceType.Slack)
     .Build();
+var productOwner = new UserBuilder()
+    .setId(Guid.NewGuid())
+    .setName("Piet")
+    .setEmail("Piet@mail.com")
+    .setPhoneNr("06-12345678")
+    .setSlackUsername("@PietjePuk")
+    .setRole(Role.ProductOwner)
+    .addNotificationPreference(NotificationPreferenceType.Email)
+    .addNotificationPreference(NotificationPreferenceType.Slack)
+    .addNotificationPreference(NotificationPreferenceType.WhatsApp)
+    .Build();
 
-var a = new BacklogItem(Guid.NewGuid(), "", "", 0, 0, new Sprint(Guid.NewGuid(),"sprint1", new DateTime(), new DateTime()),
+var listDev = new List<User>{devUser};
+
+var a = new BacklogItem(Guid.NewGuid(), "", "", 0, 0, new Sprint(Guid.NewGuid(),"sprint1", new DateTime(), new DateTime(),listDev),
     devUser, testUser);
 var n = new Notification("A test notification!  :)");
 a.AddListener(devUser);
 a.SendNotification(n);
 
-var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13));
+
+var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev);
 var pb = new ProductBacklog(new Guid(), s);
 var pbi = new BacklogItem(Guid.NewGuid(), "test", "item about a test", 1, 3, s, devUser, testUser);
 var pbi2 = new BacklogItem(Guid.NewGuid(), "andere test", "item about a andere test", 1, 10, s, devUser, testUser);
@@ -47,11 +61,11 @@ var reply = new Comment(new Guid(), "wat een stomme actie");
 comment.ReplyToComment(reply);
 pbi.AddActivity(activity);
 pbi.AddComment(comment);
-var p1 = new Project(new Guid(), pb, new GithubAdapter());
-var p2 = new Project(new Guid(), pb, new GitLabAdapter());
-var p3 = new Project(new Guid(), pb, new AWSCodeAdapter());
-var p4 = new Project(new Guid(), pb, new BitBucketAdapter());
-var p5 = new Project(new Guid(), pb, new MSAzureDevOpsAdapter());
+var p1 = new Project(new Guid(), pb, new GithubAdapter(), productOwner);
+var p2 = new Project(new Guid(), pb, new GitLabAdapter(), productOwner);
+var p3 = new Project(new Guid(), pb, new AWSCodeAdapter(), productOwner);
+var p4 = new Project(new Guid(), pb, new BitBucketAdapter(), productOwner);
+var p5 = new Project(new Guid(), pb, new MSAzureDevOpsAdapter(), productOwner);
 p1.Commit();
 p2.Commit();
 p3.Commit();

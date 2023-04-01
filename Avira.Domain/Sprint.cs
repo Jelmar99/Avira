@@ -17,7 +17,7 @@ public class Sprint : IExport
 
     private Pipeline Pipeline;
 
-    public Sprint(Guid id, string name, DateTime startDate, DateTime endDate)
+    public Sprint(Guid id, string name, DateTime startDate, DateTime endDate, List<User> developers)
     {
         Id = id;
         Name = name;
@@ -25,6 +25,8 @@ public class Sprint : IExport
         EndDate = endDate;
         BacklogItems = new List<BacklogItem>();
         Pipeline = new Pipeline(this);
+        Developers = developers;
+        
     }
 
     public void CheckIfFinished()
