@@ -43,6 +43,8 @@ s.AddBacklogItem(pbi);
 s.AddBacklogItem(pbi2);
 var activity = new Activity(new Guid(), "Maak de hele app", pb);
 var comment = new Comment(new Guid(), "Wat een mooie comment");
+var reply = new Comment(new Guid(), "wat een stomme actie");
+comment.ReplyToComment(reply);
 pbi.AddActivity(activity);
 pbi.AddComment(comment);
 var p1 = new Project(new Guid(), pb, new GithubAdapter());

@@ -37,6 +37,10 @@ public class Exporter : IVisitor
     public void VisitComment(Comment comment)
     {
         ExportStrategy.ExportComment(comment);
+        foreach (var item in comment.Replies)
+        {
+            item.Accept(this);
+        }
     }
 
     public void VisitActivity(Activity activity)
