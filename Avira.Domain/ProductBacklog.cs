@@ -2,8 +2,8 @@
 
 public class ProductBacklog
 {
-    private Guid Id { get; set; }
-    private Sprint? Sprint { get; set; }
+    private Guid Id { get; }
+    private Sprint? Sprint { get; }
     private List<BacklogItem>? BacklogItems { get; set; }
     public ProductBacklog(Guid id, Sprint? sprint)
     {

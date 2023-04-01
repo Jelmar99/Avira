@@ -5,15 +5,17 @@ namespace Avira.Domain;
 
 public class BacklogItem : IExport
 {
-    private Guid Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    private int StoryPoints { get; set; }
-    private int SprintId { get; set; }
-    private Sprint Sprint { get; set; }
-    public List<Activity> Activities { get; set; }
-    public List<Comment> Comments { get; set; }
-    private ICollection<INotificationListener> notificationListeners = new List<INotificationListener>(); // TODO: move to constructor
+    private Guid Id { get; }
+    public string Name { get; }
+    public string Description { get; }
+    private int StoryPoints { get; }
+    private int SprintId { get; }
+    private Sprint Sprint { get; }
+    public List<Activity> Activities { get; }
+    public List<Comment> Comments { get; }
+
+    private readonly ICollection<INotificationListener> _notificationListeners;
+
     public BacklogItem(Guid id, string name, string description, int storyPoints, int sprintId, Sprint sprint)
     {
         Id = id;
@@ -24,8 +26,9 @@ public class BacklogItem : IExport
         Sprint = sprint;
         Activities = new List<Activity>();
         Comments = new List<Comment>();
+        _notificationListeners = new List<INotificationListener>();
     }
-    
+
     public void AddActivity(Activity activity)
     {
         Activities.Add(activity);
@@ -33,17 +36,18 @@ public class BacklogItem : IExport
 
     public void AddListener(INotificationListener listener)
     {
-        notificationListeners.Add(listener);
+        _notificationListeners.Add(listener);
     }
+
     public void AddComment(Comment comment)
     {
         Comments.Add(comment);
     }
 
-    //TODO: Make private 
+    // Is only public to use in Program.cs as demonstration.
     public void SendNotification(Notification notification)
     {
-        foreach (var notificationListener in notificationListeners)
+        foreach (var notificationListener in _notificationListeners)
         {
             notificationListener.onNotification(notification);
         }

@@ -4,10 +4,10 @@ namespace Avira.Domain;
 
 public class Activity : IExport
 {
-    private Guid Id { get; set; }
-    public string Name { get; set; }
-    private ProductBacklog ProductBacklog { get; set; }
-    
+    private Guid Id { get; }
+    public string Name { get; }
+    private ProductBacklog ProductBacklog { get; }
+
     public Activity(Guid id, string name, ProductBacklog productBacklog)
     {
         Id = id;
