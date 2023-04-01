@@ -119,10 +119,10 @@ public class SprintUnitTest
     public void CheckIfFinished_SprintEndDatePassed_StatusSetToFinished()
     {
         // Arrange
-        Guid sprintId = Guid.NewGuid();
-        string sprintName = "Sprint 1";
-        DateTime startDate = DateTime.Now.AddDays(-14);
-        DateTime endDate = DateTime.Now.AddDays(-7);
+        var sprintId = Guid.NewGuid();
+        var sprintName = "Sprint 1";
+        var startDate = DateTime.Now.AddDays(-14);
+        var endDate = DateTime.Now.AddDays(-7);
         var developers = new List<User>();
 
         var sprint = new Sprint(sprintId, sprintName, startDate, endDate, developers);
@@ -138,10 +138,10 @@ public class SprintUnitTest
     public void InitializeRelease_ScrumMaster_CanInitializeRelease()
     {
         // Arrange
-        Guid sprintId = Guid.NewGuid();
-        string sprintName = "Sprint 1";
-        DateTime startDate = DateTime.Now.AddDays(-14);
-        DateTime endDate = DateTime.Now.AddDays(-7);
+        var sprintId = Guid.NewGuid();
+        var sprintName = "Sprint 1";
+        var startDate = DateTime.Now.AddDays(-14);
+        var endDate = DateTime.Now.AddDays(-7);
         var developers = new List<User>();
         var scrumMaster = new UserBuilder()
             .setId(Guid.NewGuid())
@@ -170,10 +170,10 @@ public class SprintUnitTest
     public void InitializeRelease_Developer_ThrowsException()
     {
         // Arrange
-        Guid sprintId = Guid.NewGuid();
-        string sprintName = "Sprint 1";
-        DateTime startDate = DateTime.Now.AddDays(-14);
-        DateTime endDate = DateTime.Now.AddDays(-7);
+        var sprintId = Guid.NewGuid();
+        var sprintName = "Sprint 1";
+        var startDate = DateTime.Now.AddDays(-14);
+        var endDate = DateTime.Now.AddDays(-7);
         var developers = new List<User>();
         var devUser = new UserBuilder()
             .setId(Guid.NewGuid())
@@ -193,4 +193,26 @@ public class SprintUnitTest
         // Act & Assert
         Assert.Throws<Exception>(() => sprint.InitializeRelease(devUser));
     }
+    [Test]
+    public void Send_Notification_OnSprintRelease()
+    {
+        // Arrange
+        var devUser = new UserBuilder().setId(Guid.NewGuid()).setName("Bob").setEmail("Bob@company.com")
+            .setPhoneNr("06-87654321").setSlackUsername("@BobbyB").setRole(Role.Developer)
+            .addNotificationPreference(NotificationPreferenceType.Email)
+            .addNotificationPreference(NotificationPreferenceType.Slack)
+            .addNotificationPreference(NotificationPreferenceType.WhatsApp).Build();
+        var listDev = new List<User> { devUser };
+        var sprint = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev);
+        var p = new Pipeline(sprint);
+        using var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
+        // Act
+        p.AddListener(devUser);
+        sprint.Deploy();
+        var consoleOutput = stringWriter.ToString();
+        // Assert
+        Assert.That(consoleOutput, Is.EqualTo("Executing Phase Sources\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Package\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Build\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Test\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Analyse\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Deploy\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Utility\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\n"));
+    }
+    
 }
