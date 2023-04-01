@@ -5,10 +5,10 @@ namespace Avira.Domain;
 
 public class Sprint : IExport
 {
-    private Guid Id { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-    public List<BacklogItem> BacklogItems { get; set; }
+    private Guid Id { get; }
+    public DateTime StartDate { get; }
+    public DateTime EndDate { get; }
+    public List<BacklogItem> BacklogItems { get; }
     
     public Sprint(Guid id, DateTime startDate, DateTime endDate)
     {
@@ -24,7 +24,7 @@ public class Sprint : IExport
     }
     public void RemoveBacklogItem(BacklogItem backlogItem)
     {
-        BacklogItems?.Remove(backlogItem);
+        BacklogItems.Remove(backlogItem);
     }
 
     public void Deploy(Pipeline pipeline)

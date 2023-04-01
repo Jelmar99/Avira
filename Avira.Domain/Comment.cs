@@ -4,8 +4,8 @@ namespace Avira.Domain;
 
 public class Comment : IExport
 {
-    public Guid Id { get; set; }
-    public string Text { get; set; }
+    public Guid Id { get; }
+    public string Text { get; }
     public List<Comment> Comments { get; set; }
 
     public Comment(Guid id, string text)

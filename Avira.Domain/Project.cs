@@ -1,11 +1,9 @@
-﻿using Avira.Domain.Adapters;
-
-namespace Avira.Domain;
+﻿namespace Avira.Domain;
 
 public class Project
 {
-    private Guid Id { get; set; }
-    private ProductBacklog ProductBacklog { get; set; }
+    private Guid Id { get; }
+    private ProductBacklog ProductBacklog { get; }
     private List<Sprint>? Sprints { get; set; }
 
     private IVersionControl VersionControl;
