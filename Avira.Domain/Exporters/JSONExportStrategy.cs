@@ -28,4 +28,10 @@ public class JSONExportStrategy : IExportStrategy
         var output = JsonConvert.SerializeObject("--Activity: " + activity.Name, Formatting.Indented);
         Console.WriteLine(output);
     }
+
+    public void ExportProductBacklog(ProductBacklog productBacklog)
+    {
+        var output = JsonConvert.SerializeObject("ProductBacklog: " + productBacklog.Id + " From sprint: " + productBacklog.Sprint.Name, Formatting.Indented);
+        Console.WriteLine(output);
+    }
 }

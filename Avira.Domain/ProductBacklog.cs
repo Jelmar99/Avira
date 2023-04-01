@@ -1,9 +1,11 @@
-﻿namespace Avira.Domain;
+﻿using Avira.Domain.Interfaces;
 
-public class ProductBacklog
+namespace Avira.Domain;
+
+public class ProductBacklog : IExport
 {
-    private Guid Id { get; }
-    private Sprint? Sprint { get; }
+    public Guid Id { get; }
+    public Sprint? Sprint { get; }
     private List<BacklogItem>? BacklogItems { get; set; }
     public ProductBacklog(Guid id, Sprint? sprint)
     {
@@ -13,5 +15,10 @@ public class ProductBacklog
     public void AddBacklogItem(BacklogItem backlogItem)
     {
         BacklogItems?.Add(backlogItem);
+    }
+
+    public void Accept(IVisitor visitor)
+    {
+        visitor.VisitProductBacklog(this);
     }
 }

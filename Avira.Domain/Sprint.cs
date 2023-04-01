@@ -6,6 +6,7 @@ namespace Avira.Domain;
 public class Sprint : IExport
 {
     private Guid Id { get; }
+    public string Name { get; set;}
     public DateTime StartDate { get; }
     public DateTime EndDate { get; }
     public List<BacklogItem> BacklogItems { get; }
@@ -14,9 +15,10 @@ public class Sprint : IExport
 
     public List<User> Developers { get; set; }
 
-    public Sprint(Guid id, DateTime startDate, DateTime endDate)
+    public Sprint(Guid id, string name, DateTime startDate, DateTime endDate)
     {
         Id = id;
+        Name = name;
         StartDate = startDate;
         EndDate = endDate;
         BacklogItems = new List<BacklogItem>();

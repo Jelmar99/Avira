@@ -42,4 +42,9 @@ public class Exporter : IVisitor
     {
         ExportStrategy.ExportActivity(activity);
     }
+
+    public void VisitProductBacklog(ProductBacklog productBacklog)
+    {
+        ExportStrategy.ExportProductBacklog(productBacklog);
+    }
 }

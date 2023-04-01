@@ -23,4 +23,9 @@ public class PlainTextExportStrategy : IExportStrategy
     {
         Console.WriteLine("--Activity: " + activity.Name);
     }
+
+    public void ExportProductBacklog(ProductBacklog productBacklog)
+    {
+        Console.WriteLine("ProductBacklog: " + productBacklog.Id + " From sprint: " + productBacklog.Sprint.Name);
+    }
 }

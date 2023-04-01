@@ -6,4 +6,5 @@ public interface IExportStrategy
     void ExportBacklogItem(BacklogItem backlogItem);
     void ExportComment(Comment comment);
     void ExportActivity(Activity activity);
+    void ExportProductBacklog(ProductBacklog productBacklog);
 }

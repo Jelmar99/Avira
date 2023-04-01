@@ -7,7 +7,7 @@ using Avira.Domain.Notifications;
 
 Console.WriteLine("Hello, World!");
 
-var a = new BacklogItem(Guid.Empty, "", "", 0, 0, new Sprint(Guid.Empty, new DateTime(), new DateTime()));
+var a = new BacklogItem(Guid.Empty, "", "", 0, 0, new Sprint(Guid.Empty, "sprint1", new DateTime(), new DateTime()));
 
 //var u = new User(new Guid(), "Bob");
 var u = new UserBuilder()
@@ -26,7 +26,7 @@ var n = new Notification("A test notification!  :)");
 a.AddListener(u);
 a.SendNotification(n);
 
-var s = new Sprint(new Guid(), new DateTime(2023, 3, 30), new DateTime(2023, 4, 13));
+var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 3, 30), new DateTime(2023, 4, 13));
 var pb = new ProductBacklog(new Guid(), s);
 var pbi = new BacklogItem(new Guid(), "test", "item about a test", 1, 1, s);
 var pbi2 = new BacklogItem(new Guid(), "andere test", "item about a andere test", 1, 1, s);
@@ -56,3 +56,5 @@ s.Accept(exPlain);
 
 var exJson = new Exporter(new JSONExportStrategy());
 s.Accept(exJson);
+
+pb.Accept(exJson);
