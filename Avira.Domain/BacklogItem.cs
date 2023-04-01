@@ -18,7 +18,7 @@ public class BacklogItem : IExport
 
     public BacklogItemPhase _phase { get; private set; }
 
-    private User Developer;
+    public User Developer;
 
     private User Tester;
 

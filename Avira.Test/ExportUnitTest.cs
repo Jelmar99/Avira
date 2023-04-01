@@ -32,17 +32,6 @@ public class ExportUnitTest
             .addNotificationPreference(NotificationPreferenceType.Email)
             .addNotificationPreference(NotificationPreferenceType.Slack)
             .Build();
-        var productOwner = new UserBuilder()
-            .setId(Guid.NewGuid())
-            .setName("Piet")
-            .setEmail("Piet@mail.com")
-            .setPhoneNr("06-12345678")
-            .setSlackUsername("@PietjePuk")
-            .setRole(Role.ProductOwner)
-            .addNotificationPreference(NotificationPreferenceType.Email)
-            .addNotificationPreference(NotificationPreferenceType.Slack)
-            .addNotificationPreference(NotificationPreferenceType.WhatsApp)
-            .Build();
 
         var listDev = new List<User> { devUser };
         var s = new Sprint(new Guid(), "sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev);
@@ -63,7 +52,7 @@ public class ExportUnitTest
         var exportString = s.Accept(exPlain);
 
         //Assert
-        Assert.That(exportString, Is.EqualTo("Sprint: sprint2, running from 2-4-2023 00:00:00 to 13-4-2023 00:00:00\n-BacklogItem: andere test, with description: item about a andere test\n-BacklogItem: test, with description: item about a test\n--Comment: Wat een mooie comment\n--Comment: wat een stomme actie\n--Activity: Maak de hele app"));
+        Assert.That(exportString, Is.EqualTo("Sprint: sprint2, running from 2-4-2023 00:00:00 to 13-4-2023 00:00:00\n-BacklogItem: andere test, with description: item about a andere test, assigned developer: Bob\n-BacklogItem: test, with description: item about a test, assigned developer: Bob\n--Comment: Wat een mooie comment\n--Comment: wat een stomme actie\n--Activity: Maak de hele app"));
     }
     
         [Test]
@@ -121,6 +110,6 @@ public class ExportUnitTest
         var exportString = s.Accept(exJson);
 
         //Assert
-        Assert.That(exportString, Is.EqualTo("\"Sprint Time span from:  2-4-2023 00:00:00 to 13-4-2023 00:00:00\"\n\"-BacklogItem: andere test, with description: item about a andere test\"\n\"-BacklogItem: test, with description: item about a test\"\n\"--Comment: Wat een mooie comment\"\n\"--Comment: wat een stomme actie\"\n\"--Activity: Maak de hele app\""));
+        Assert.That(exportString, Is.EqualTo("\"Sprint Time span from:  2-4-2023 00:00:00 to 13-4-2023 00:00:00\"\n\"-BacklogItem: andere test, with description: item about a andere testassigned developer: Bob\"\n\"-BacklogItem: test, with description: item about a testassigned developer: Bob\"\n\"--Comment: Wat een mooie comment\"\n\"--Comment: wat een stomme actie\"\n\"--Activity: Maak de hele app\""));
     }
 }

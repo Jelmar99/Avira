@@ -14,7 +14,7 @@ public class JSONExportStrategy : IExportStrategy
 
     public string ExportBacklogItem(BacklogItem backlogItem)
     {
-        var output = JsonConvert.SerializeObject("-BacklogItem: " + backlogItem.Name + ", with description: " + backlogItem.Description, Formatting.Indented);
+        var output = JsonConvert.SerializeObject("-BacklogItem: " + backlogItem.Name + ", with description: " + backlogItem.Description + "assigned developer: " + backlogItem.Developer.Name, Formatting.Indented);
         return output;
     }
 
@@ -32,7 +32,7 @@ public class JSONExportStrategy : IExportStrategy
 
     public string ExportProductBacklog(ProductBacklog productBacklog)
     {
-        var output = JsonConvert.SerializeObject("ProductBacklog: " + productBacklog.Id + " From sprint: " + productBacklog.Sprint.Name, Formatting.Indented);
+        var output = JsonConvert.SerializeObject("ProductBacklog: " + productBacklog.Id + " From sprint: " + productBacklog.Sprint?.Name, Formatting.Indented);
         return output;
     }
 }

@@ -12,7 +12,8 @@ public class PlainTextExportStrategy : IExportStrategy
 
     public string ExportBacklogItem(BacklogItem backlogItem)
     {
-        return $"-BacklogItem: {backlogItem.Name}, with description: {backlogItem.Description}";
+        return
+            $"-BacklogItem: {backlogItem.Name}, with description: {backlogItem.Description}, assigned developer: {backlogItem.Developer.Name}";
     }
 
     public string ExportComment(Comment comment)
