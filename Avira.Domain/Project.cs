@@ -1,14 +1,16 @@
-﻿namespace Avira.Domain;
+﻿using Avira.Domain.Interfaces;
+
+namespace Avira.Domain;
 
 public class Project
 {
-    private Guid Id { get; }
-    private ProductBacklog ProductBacklog { get; }
-    private List<Sprint>? Sprints { get; }
+    private Guid Id;
+    private ProductBacklog ProductBacklog;
+    private List<Sprint> _sprints;
 
     private IVersionControl VersionControl;
 
-    public User ProductOwner { get; set; }
+    public User ProductOwner { get; }
 
     public Project(Guid id, ProductBacklog productBacklog, IVersionControl adapter, User productOwner)
     {
@@ -16,11 +18,12 @@ public class Project
         ProductBacklog = productBacklog;
         VersionControl = adapter;
         ProductOwner = productOwner;
+        _sprints = new List<Sprint>();
     }
 
     public void AddSprint(Sprint sprint)
     {
-        Sprints?.Add(sprint);
+        _sprints.Add(sprint);
     }
 
     public void Commit()

@@ -2,6 +2,7 @@ namespace Avira.Domain.Notifications;
 
 public class EmailNotificationPreferenceDecorator : BaseNotificationPreferenceDecorator
 {
+    // Design pattern: Decorator
     public EmailNotificationPreferenceDecorator(INotificationPreference wrappedPreference) : base(wrappedPreference)
     {
     }
@@ -10,8 +11,8 @@ public class EmailNotificationPreferenceDecorator : BaseNotificationPreferenceDe
     {
         base.sendNotification(notification);
         Console.WriteLine(
-            $"Notification for {notification.recipient.Name}\t" +
+            $"Notification for {notification.Recipient.Name}\t" +
             $"Email\t: '{notification.Message}'\t" +
-            $"To: {notification.recipient.Email}");
+            $"To: {notification.Recipient.Email}");
     }
 }

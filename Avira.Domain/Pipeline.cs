@@ -30,11 +30,13 @@ public class Pipeline
 
     public void AddListener(INotificationListener listener)
     {
+        // Design pattern: Observer
         notificationListeners.Add(listener);
     }
 
     public void SendNotification(Notification notification)
     {
+        // Design pattern: Observer
         foreach (var notificationListener in notificationListeners)
         {
             notificationListener.onNotification(notification);

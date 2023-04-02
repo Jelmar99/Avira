@@ -1,10 +1,10 @@
 ﻿using Avira.Domain.Interfaces;
 
-namespace Avira.Domain;
+namespace Avira.Domain.Exporters;
 
-// Strategy Pattern
 public class PlainTextExportStrategy : IExportStrategy 
 {
+    // Design pattern: Strategy
     public string ExportSprint(Sprint sprint)
     {
         return $"Sprint: {sprint.Name}, running from {sprint.StartDate} to {sprint.EndDate}";
@@ -28,6 +28,6 @@ public class PlainTextExportStrategy : IExportStrategy
 
     public string ExportProductBacklog(ProductBacklog productBacklog)
     {
-        return $"ProductBacklog: {productBacklog.Id} From sprint: {productBacklog.Sprint.Name}";
+        return $"ProductBacklog: {productBacklog.Id} From sprint: {productBacklog.Sprint?.Name}";
     }
 }

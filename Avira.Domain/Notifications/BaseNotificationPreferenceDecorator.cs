@@ -2,15 +2,16 @@ namespace Avira.Domain.Notifications;
 
 public class BaseNotificationPreferenceDecorator : INotificationPreference
 {
-    private readonly INotificationPreference WrappedPreference;
-    
-    public BaseNotificationPreferenceDecorator(INotificationPreference wrappedPreference)
+    // Design pattern: Decorator
+    private readonly INotificationPreference _wrappedPreference;
+
+    protected BaseNotificationPreferenceDecorator(INotificationPreference wrappedPreference)
     {
-        WrappedPreference = wrappedPreference;
+        _wrappedPreference = wrappedPreference;
     }
 
     public virtual void sendNotification(Notification notification)
     {
-        WrappedPreference.sendNotification(notification);
+        _wrappedPreference.sendNotification(notification);
     }
 }

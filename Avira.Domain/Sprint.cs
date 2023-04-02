@@ -9,13 +9,13 @@ public class Sprint : IExport
     public string Name { get; private set; }
     public DateTime StartDate { get; private set; }
     public DateTime EndDate { get; private set; }
-    public List<BacklogItem> BacklogItems;
-    public User ScrumMaster { get; set; }
-    public List<User> Developers { get; set; }
-    public bool IsRelease { get; set; } = false;
+    private readonly List<BacklogItem> _backlogItems;
+    public User ScrumMaster { get; }
+    public List<User> Developers { get; }
+    public bool IsRelease { get; set; }
     public Status Status { get; private set; }
 
-    private Pipeline Pipeline;
+    private readonly Pipeline _pipeline;
 
     public Sprint(Guid id, string name, DateTime startDate, DateTime endDate, List<User> developers, User scrumMaster)
     {
@@ -23,8 +23,8 @@ public class Sprint : IExport
         Name = name;
         StartDate = startDate;
         EndDate = endDate;
-        BacklogItems = new List<BacklogItem>();
-        Pipeline = new Pipeline(this);
+        _backlogItems = new List<BacklogItem>();
+        _pipeline = new Pipeline(this);
         Developers = developers;
         ScrumMaster = scrumMaster;
     }
@@ -36,12 +36,14 @@ public class Sprint : IExport
             Status = Status.Finished;
         }
     }
+
     public void InitializeRelease(User updatedBy)
     {
         if (updatedBy.Role != Role.ScrumMaster)
         {
             throw new Exception("You must be a Scrum Master to initialize a Release.");
         }
+
         IsRelease = true; // There should be a check if the user that calls this method is the scrum master, but since we dont have login functionality, we will skip this check.
         if (Status == Status.Finished && IsRelease)
         {
@@ -59,8 +61,8 @@ public class Sprint : IExport
         {
             throw new Exception("You can't change the status of a sprint that has already started.");
         }
-        
     }
+
     public void SetName(string name)
     {
         if (DateTime.Now < StartDate)
@@ -72,6 +74,7 @@ public class Sprint : IExport
             throw new Exception("You can't change the name of a sprint that has already started.");
         }
     }
+
     public void SetStartDate(DateTime startDate)
     {
         if (DateTime.Now < StartDate)
@@ -83,6 +86,7 @@ public class Sprint : IExport
             throw new Exception("You can't change the start date of a sprint that has already started.");
         }
     }
+
     public void SetEndDate(DateTime endDate)
     {
         if (DateTime.Now < StartDate)
@@ -97,14 +101,14 @@ public class Sprint : IExport
 
     public List<BacklogItem> GetBacklogItems()
     {
-        return BacklogItems.OrderByDescending(item => item.Weight).ToList();
+        return _backlogItems.OrderByDescending(item => item.Weight).ToList();
     }
 
     public void AddBacklogItem(BacklogItem backlogItem)
     {
         if (DateTime.Now < StartDate)
         {
-            BacklogItems.Add(backlogItem);
+            _backlogItems.Add(backlogItem);
         }
         else
         {
@@ -116,7 +120,7 @@ public class Sprint : IExport
     {
         if (DateTime.Now < StartDate)
         {
-            BacklogItems.Remove(backlogItem);
+            _backlogItems.Remove(backlogItem);
         }
         else
         {
@@ -126,13 +130,13 @@ public class Sprint : IExport
 
     public void Deploy()
     {
-        Pipeline.SendNotification(new Notification("Deploying Sprint " + Id));
-        Pipeline.Deploy();
+        _pipeline.SendNotification(new Notification("Deploying Sprint " + Id));
+        _pipeline.Deploy();
     }
 
-    // Visitor Pattern
     public string Accept(IVisitor visitor)
     {
+        // Design pattern: Visitor
         return visitor.VisitSprint(this);
     }
 }

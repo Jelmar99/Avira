@@ -1,9 +1,11 @@
-﻿using Avira.Domain.VersionControl;
+﻿using Avira.Domain.Interfaces;
+using Avira.Domain.VersionControl;
 
 namespace Avira.Domain.Adapters;
 
 public class GitLabAdapter : IVersionControl
 {
+    // Design pattern: Adapter
     private readonly GitLabService _service;
 
     public GitLabAdapter()

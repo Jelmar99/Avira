@@ -2,8 +2,8 @@ namespace Avira.Domain.Notifications;
 
 public class Notification
 {
-    public string Message { get; set; }
-    public User recipient { get; set; }
+    public string Message { get; }
+    public User Recipient { get; set; } = null!;
 
     public Notification(string message)
     {

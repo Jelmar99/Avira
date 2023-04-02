@@ -1,11 +1,11 @@
 ﻿using Avira.Domain.Interfaces;
 using Newtonsoft.Json;
 
-namespace Avira.Domain;
+namespace Avira.Domain.Exporters;
 
-// Strategy Pattern
 public class JSONExportStrategy : IExportStrategy
 {
+    // Design pattern: Strategy
     public string ExportSprint(Sprint sprint)
     {
         var output = JsonConvert.SerializeObject("Sprint Time span from:  " + sprint.StartDate + " to " + sprint.EndDate, Formatting.Indented);
