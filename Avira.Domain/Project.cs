@@ -7,21 +7,27 @@ public class Project
     private List<Sprint>? Sprints { get; set; }
 
     private IVersionControl VersionControl;
-    public Project(Guid id, ProductBacklog productBacklog, IVersionControl adapter)
+
+    public User ProductOwner { get; set; }
+
+    public Project(Guid id, ProductBacklog productBacklog, IVersionControl adapter, User productOwner)
     {
         Id = id;
         ProductBacklog = productBacklog;
         VersionControl = adapter;
+        ProductOwner = productOwner;
     }
+
     public void AddSprint(Sprint sprint)
     {
         Sprints?.Add(sprint);
     }
+
     public void Commit()
     {
         VersionControl.Commit();
     }
-    
+
     public void Push()
     {
         VersionControl.Push();

@@ -7,7 +7,7 @@ public class User : INotificationListener
 {
     private Guid Id { get; }
     public string Name { get; }
-    private Role? Role { get; set; }
+    public Role? Role { get; set; }
     private INotificationPreference NotificationPreference { get; }
     public string Email { get; }
     public string PhoneNr { get; }

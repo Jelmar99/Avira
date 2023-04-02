@@ -8,11 +8,14 @@ public class Activity : IExport
     public string Name { get; }
     private ProductBacklog ProductBacklog { get; }
 
+    public bool Done { get; set; }
+
     public Activity(Guid id, string name, ProductBacklog productBacklog)
     {
         Id = id;
         Name = name;
         ProductBacklog = productBacklog;
+        Done = false;
     }
 
     public void Accept(IVisitor visitor)

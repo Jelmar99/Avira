@@ -2,6 +2,7 @@
 
 namespace Avira.Domain;
 
+//Strategy for choosing which export --> Strategy pattern
 public class Exporter : IVisitor
 {
     public IExportStrategy ExportStrategy { get; set; }
@@ -13,7 +14,7 @@ public class Exporter : IVisitor
     public void VisitSprint(Sprint sprint)
     {
         ExportStrategy.ExportSprint(sprint);
-        foreach (var item in sprint.BacklogItems)
+        foreach (var item in sprint.GetBacklogItems())
         {
             item.Accept(this);
         }
@@ -36,10 +37,23 @@ public class Exporter : IVisitor
     public void VisitComment(Comment comment)
     {
         ExportStrategy.ExportComment(comment);
+        foreach (var item in comment.Replies)
+        {
+            item.Accept(this);
+        }
     }
 
     public void VisitActivity(Activity activity)
     {
         ExportStrategy.ExportActivity(activity);
+    }
+
+    public void VisitProductBacklog(ProductBacklog productBacklog)
+    {
+        ExportStrategy.ExportProductBacklog(productBacklog);
+        foreach (var item in productBacklog.GetBacklogItems())
+        {
+            item.Accept(this);
+        }
     }
 }

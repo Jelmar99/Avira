@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Avira.Domain;
 
+// Strategy Pattern
 public class JSONExportStrategy : IExportStrategy
 {
     public void ExportSprint(Sprint sprint)
@@ -26,6 +27,12 @@ public class JSONExportStrategy : IExportStrategy
     public void ExportActivity(Activity activity)
     {
         var output = JsonConvert.SerializeObject("--Activity: " + activity.Name, Formatting.Indented);
+        Console.WriteLine(output);
+    }
+
+    public void ExportProductBacklog(ProductBacklog productBacklog)
+    {
+        var output = JsonConvert.SerializeObject("ProductBacklog: " + productBacklog.Id + " From sprint: " + productBacklog.Sprint.Name, Formatting.Indented);
         Console.WriteLine(output);
     }
 }
