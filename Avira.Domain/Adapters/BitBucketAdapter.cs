@@ -1,7 +1,10 @@
-﻿namespace Avira.Domain.Adapters;
+﻿using Avira.Domain.Interfaces;
+
+namespace Avira.Domain.Adapters;
 
 public class BitBucketAdapter : IVersionControl
 {
+    // Design pattern: Adapter
     public void Commit()
     {
         Console.WriteLine("Committing to Bitbucket!");

@@ -1,8 +1,8 @@
-﻿namespace Avira.Domain;
+﻿namespace Avira.Domain.Interfaces;
 
-// This is the Visitor interface -> Visitor Pattern
 public interface IVisitor
 {
+    // Design pattern: Visitor
     string VisitSprint(Sprint sprint);
     string VisitBacklogItem(BacklogItem backlogItem);
     string VisitComment(Comment comment);

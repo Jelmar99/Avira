@@ -2,6 +2,7 @@ namespace Avira.Domain.Notifications;
 
 public class SlackNotificationPreferenceDecorator : BaseNotificationPreferenceDecorator
 {
+    // Design pattern: Decorator
     public SlackNotificationPreferenceDecorator(INotificationPreference wrappedPreference) : base(wrappedPreference)
     {
     }
@@ -10,8 +11,8 @@ public class SlackNotificationPreferenceDecorator : BaseNotificationPreferenceDe
     {
         base.sendNotification(notification);
         Console.WriteLine(
-            $"Notification for {notification.recipient.Name}\t" +
+            $"Notification for {notification.Recipient.Name}\t" +
             $"Slack\t: '{notification.Message}'\t" +
-            $"To: {notification.recipient.SlackUsername}");
+            $"To: {notification.Recipient.SlackUsername}");
     }
 }

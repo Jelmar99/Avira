@@ -8,7 +8,7 @@ public class BacklogItem : IExport
     private Guid Id { get; }
     public string Name { get; }
     public string Description { get; }
-    private int StoryPoints { get; }
+    private int StoryPoints;
     public int Weight { get; }
     private Sprint Sprint { get; }
     public List<Activity> Activities { get; }
@@ -20,7 +20,7 @@ public class BacklogItem : IExport
 
     public User Developer;
 
-    private User Tester;
+    private readonly User _tester;
 
     public BacklogItem(Guid id, string name, string description, int storyPoints, int weight, Sprint sprint,
         User developer, User tester)
@@ -42,7 +42,7 @@ public class BacklogItem : IExport
         Weight = weight;
         Sprint = sprint;
         Developer = developer;
-        Tester = tester;
+        _tester = tester;
 
         Activities = new List<Activity>();
         Comments = new List<Comment>();
@@ -99,7 +99,7 @@ public class BacklogItem : IExport
         if (newPhase == BacklogItemPhase.ReadyForTesting)
         {
             var notification = new Notification($"A new Backlog Item has become ready to test: {Name} ({Id})");
-            Tester.onNotification(notification);
+            _tester.onNotification(notification);
         }
     }
 
@@ -118,6 +118,7 @@ public class BacklogItem : IExport
 
     public void AddListener(INotificationListener listener)
     {
+        // Design pattern: Observer
         _notificationListeners.Add(listener);
     }
 
@@ -132,10 +133,10 @@ public class BacklogItem : IExport
             throw new Exception("You can't add a comment to a Backlog Item that is already Done.");
         }
     }
-
-    // Is only public to use in Program.cs as demonstration.
+    
     public void SendNotification(Notification notification)
     {
+        // Design pattern: Observer
         foreach (var notificationListener in _notificationListeners)
         {
             notificationListener.onNotification(notification);
@@ -144,6 +145,7 @@ public class BacklogItem : IExport
 
     public string Accept(IVisitor visitor)
     {
+        // Design pattern: Visitor
         return visitor.VisitBacklogItem(this);
     }
 }

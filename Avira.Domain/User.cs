@@ -5,9 +5,9 @@ namespace Avira.Domain;
 
 public class User : INotificationListener
 {
-    private Guid Id { get; }
+    private Guid _id;
     public string Name { get; }
-    public Role? Role { get; set; }
+    public Role? Role { get; private set; }
     private INotificationPreference NotificationPreference { get; }
     public string Email { get; }
     public string PhoneNr { get; }
@@ -16,7 +16,7 @@ public class User : INotificationListener
     public User(Guid id, string name, Role role, INotificationPreference notificationPreference, string email,
         string phoneNr, string slackUsername)
     {
-        Id = id;
+        _id = id;
         Name = name;
         Role = role;
         NotificationPreference = notificationPreference;
@@ -37,7 +37,8 @@ public class User : INotificationListener
 
     public void onNotification(Notification notification)
     {
-        notification.recipient = this;
+        // Design pattern: Observer
+        notification.Recipient = this;
         NotificationPreference.sendNotification(notification);
     }
 }

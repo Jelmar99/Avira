@@ -1,10 +1,10 @@
 ﻿using Avira.Domain.Interfaces;
 
-namespace Avira.Domain;
+namespace Avira.Domain.Exporters;
 
-//Strategy for choosing which export --> Strategy pattern
 public class Exporter : IVisitor
 {
+    // Design pattern: Strategy
     public IExportStrategy ExportStrategy { get; set; }
     
     public Exporter(IExportStrategy exportStrategy)
@@ -15,41 +15,25 @@ public class Exporter : IVisitor
     {
         var buildString = "";
         buildString += ExportStrategy.ExportSprint(sprint) + "\n";
-        foreach (var item in sprint.GetBacklogItems())
-        {
-            buildString += item.Accept(this);
-        }
 
-        return buildString;
+        return sprint.GetBacklogItems().Aggregate(buildString, (current, item) => current + item.Accept(this));
     }
 
     public string VisitBacklogItem(BacklogItem backlogItem)
     {
         var buildString = "";
         buildString += ExportStrategy.ExportBacklogItem(backlogItem) + "\n";
-        foreach (var comment in backlogItem.Comments)
-        {
-            buildString += comment.Accept(this);
-        }
+        buildString = backlogItem.Comments.Aggregate(buildString, (current, comment) => current + comment.Accept(this));
 
-        foreach (var activity in backlogItem.Activities)
-        {
-            buildString += activity.Accept(this);
-        }
-
-        return buildString;
+        return backlogItem.Activities.Aggregate(buildString, (current, activity) => current + activity.Accept(this));
     }
 
     public string VisitComment(Comment comment)
     {
         var buildString = "";
         buildString += ExportStrategy.ExportComment(comment)+ "\n";
-        foreach (var item in comment.Replies)
-        {
-            buildString += item.Accept(this);
-        }
 
-        return buildString;
+        return comment.Replies.Aggregate(buildString, (current, item) => current + item.Accept(this));
     }
 
     public string VisitActivity(Activity activity)
@@ -61,11 +45,7 @@ public class Exporter : IVisitor
     {
         var buildString = "";
         buildString += ExportStrategy.ExportProductBacklog(productBacklog) + "\n";
-        foreach (var item in productBacklog.GetBacklogItems())
-        {
-            buildString += item.Accept(this);
-        }
 
-        return buildString;
+        return productBacklog.GetBacklogItems().Aggregate(buildString, (current, item) => current + item.Accept(this));
     }
 }

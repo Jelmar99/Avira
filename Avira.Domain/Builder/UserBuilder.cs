@@ -4,70 +4,71 @@ namespace Avira.Domain.Builder;
 
 public class UserBuilder
 {
-    private Guid Id;
-    private string Name;
-    private Role Role;
-    private INotificationPreference NotificationPreference;
-    private string Email;
-    private string PhoneNr;
-    private string SlackUsername;
+    // Design pattern: Builder
+    private Guid _id;
+    private string? _name;
+    private Role _role;
+    private INotificationPreference _notificationPreference;
+    private string? _email;
+    private string? _phoneNr;
+    private string? _slackUsername;
 
     public UserBuilder()
     {
         // Always needs at least a default Notification Preference
-        NotificationPreference = new NotificationPreference();
+        _notificationPreference = new NotificationPreference();
     }
 
     public UserBuilder setId(Guid id)
     {
-        Id = id;
+        _id = id;
         return this;
     }
 
     public UserBuilder setName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 
     public UserBuilder setRole(Role role)
     {
-        Role = role;
+        _role = role;
         return this;
     }
 
     public UserBuilder addNotificationPreference(NotificationPreferenceType notificationPreferenceType)
     {
-        NotificationPreference = notificationPreferenceType switch
+        _notificationPreference = notificationPreferenceType switch
         {
-            NotificationPreferenceType.Email => new EmailNotificationPreferenceDecorator(NotificationPreference),
-            NotificationPreferenceType.Slack => new SlackNotificationPreferenceDecorator(NotificationPreference),
-            NotificationPreferenceType.WhatsApp => new WhatsAppNotificationPreferenceDecorator(NotificationPreference),
-            _ => NotificationPreference
+            NotificationPreferenceType.Email => new EmailNotificationPreferenceDecorator(_notificationPreference),
+            NotificationPreferenceType.Slack => new SlackNotificationPreferenceDecorator(_notificationPreference),
+            NotificationPreferenceType.WhatsApp => new WhatsAppNotificationPreferenceDecorator(_notificationPreference),
+            _ => _notificationPreference
         };
         return this;
     }
 
     public UserBuilder setEmail(string email)
     {
-        Email = email;
+        _email = email;
         return this;
     }
 
     public UserBuilder setPhoneNr(string phoneNr)
     {
-        PhoneNr = phoneNr;
+        _phoneNr = phoneNr;
         return this;
     }
 
     public UserBuilder setSlackUsername(string slackUsername)
     {
-        SlackUsername = slackUsername;
+        _slackUsername = slackUsername;
         return this;
     }
 
     public User Build()
     {
-        return new User(Id, Name, Role, NotificationPreference, Email, PhoneNr, SlackUsername);
+        return new User(_id, _name, _role, _notificationPreference, _email, _phoneNr, _slackUsername);
     }
 }

@@ -8,17 +8,17 @@ namespace Avira.Test;
 [TestFixture]
 public class VersionControlAdapterTest
 {
-    private User _dev1;
-    private User _scrumMaster;
-    private User _productOwner;
-    private ProductBacklog _productBacklog;
-    private Sprint _sprint;
+    private User _dev1 = null!;
+    private User _scrumMaster = null!;
+    private User _productOwner = null!;
+    private ProductBacklog _productBacklog = null!;
+    private Sprint _sprint = null!;
 
-    private Project _githubAdapterProject;
-    private Project _gitLabAdapterProject;
-    private Project _awsCodeAdapteProject;
-    private Project _bitBucketAdapProject;
-    private Project _msAzureDevOpsProject;
+    private Project _githubAdapterProject = null!;
+    private Project _gitLabAdapterProject = null!;
+    private Project _awsCodeAdapteProject = null!;
+    private Project _bitBucketAdapProject = null!;
+    private Project _msAzureDevOpsProject = null!;
 
     [SetUp]
     public void Setup()

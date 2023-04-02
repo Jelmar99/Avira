@@ -2,6 +2,7 @@ namespace Avira.Domain.VersionControl;
 
 public class GitLabService
 {
+    // Design pattern: Adapter
     public void CommitToGitLab()
     {
         Console.WriteLine("Committing to Gitlab!");

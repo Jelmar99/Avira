@@ -2,6 +2,7 @@ namespace Avira.Domain.Notifications;
 
 public class WhatsAppNotificationPreferenceDecorator : BaseNotificationPreferenceDecorator
 {
+    // Design pattern: Decorator
     public WhatsAppNotificationPreferenceDecorator(INotificationPreference wrappedPreference) : base(wrappedPreference)
     {
     }
@@ -10,8 +11,8 @@ public class WhatsAppNotificationPreferenceDecorator : BaseNotificationPreferenc
     {
         base.sendNotification(notification);
         Console.WriteLine(
-            $"Notification for {notification.recipient.Name}\t" +
+            $"Notification for {notification.Recipient.Name}\t" +
             $"WhatsApp: '{notification.Message}'\t" +
-            $"To: {notification.recipient.PhoneNr}");
+            $"To: {notification.Recipient.PhoneNr}");
     }
 }

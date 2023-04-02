@@ -2,7 +2,7 @@
 
 namespace Avira.Domain;
 
-public class ProductBacklog : IExport
+public class ProductBacklog
 {
     public Guid Id { get; }
     public Sprint? Sprint { get; }
@@ -26,14 +26,15 @@ public class ProductBacklog : IExport
     }
     public void RemoveBacklogItem(BacklogItem backlogItem)
     {
-        if (BacklogItems != null && BacklogItems.Count >= 0)
+        if (BacklogItems.Count >= 0)
         {
-            BacklogItems?.Remove(backlogItem);
+            BacklogItems.Remove(backlogItem);
         }
     }
 
     public string Accept(IVisitor visitor)
     {
+        // Design pattern: Visitor
         return visitor.VisitProductBacklog(this);
     }
 }

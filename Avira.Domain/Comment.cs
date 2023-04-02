@@ -4,14 +4,14 @@ namespace Avira.Domain;
 
 public class Comment : IExport
 {
-    public Guid Id { get; }
+    private Guid _id;
     public string Text { get; }
-    public List<Comment> Replies { get; set; }
+    public List<Comment> Replies { get; }
     private BacklogItem BacklogItem { get; }
 
     public Comment(Guid id, string text, BacklogItem backlogItem)
     {
-        Id = id;
+        _id = id;
         Text = text;
         BacklogItem = backlogItem;
         Replies = new List<Comment>();
@@ -30,6 +30,7 @@ public class Comment : IExport
 
     public string Accept(IVisitor visitor)
     {
+        // Design pattern: Visitor
         return visitor.VisitComment(this);
     }
 }
