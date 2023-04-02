@@ -6,25 +6,18 @@ namespace Avira.Domain.Adapters;
 public class GitLabAdapter : IVersionControl
 {
     // Design pattern: Adapter
-    private readonly GitLabService _service;
-
-    public GitLabAdapter()
-    {
-        _service = new GitLabService();
-    }
-
     public void Commit()
     {
-        _service.CommitToGitLab();
+        GitLabService.CommitToGitLab();
     }
 
     public void Push()
     {
-        _service.GitLabPush();
+        GitLabService.GitLabPush();
     }
 
     public void Pull()
     {
-        _service.GitLabPull();
+        GitLabService.GitLabPull();
     }
 }

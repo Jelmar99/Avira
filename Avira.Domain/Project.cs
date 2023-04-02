@@ -8,7 +8,7 @@ public class Project
     private ProductBacklog ProductBacklog;
     private List<Sprint> _sprints;
 
-    private IVersionControl VersionControl;
+    private IVersionControl _versionControl;
 
     public User ProductOwner { get; }
 
@@ -16,7 +16,7 @@ public class Project
     {
         Id = id;
         ProductBacklog = productBacklog;
-        VersionControl = adapter;
+        _versionControl = adapter;
         ProductOwner = productOwner;
         _sprints = new List<Sprint>();
     }
@@ -28,16 +28,16 @@ public class Project
 
     public void Commit()
     {
-        VersionControl.Commit();
+        _versionControl.Commit();
     }
 
     public void Push()
     {
-        VersionControl.Push();
+        _versionControl.Push();
     }
 
     public void Pull()
     {
-        VersionControl.Pull();
+        _versionControl.Pull();
     }
 }
