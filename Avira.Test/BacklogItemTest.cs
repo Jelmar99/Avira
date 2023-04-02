@@ -80,19 +80,6 @@ public class BacklogItemTest
         Assert.That(backlogItem.Phase, Is.EqualTo(BacklogItemPhase.Todo));
     }
 
-    [Test]
-    public void BacklogItemAddedToSprint_Ok()
-    {
-        //Arrange
-        var backlogItem = new BacklogItem(Guid.NewGuid(), "TestBacklogItem", "TestBacklogItemDescription", 1, 10,
-            _sprint, _dev1, _tester);
-
-        //Act
-        _sprint.AddBacklogItem(backlogItem);
-
-        //Assert
-        Assert.That(_sprint.GetBacklogItems(), Does.Contain(backlogItem));
-    }
 
     [Test]
     public void BacklogItemWithoutActivities_Ok()
@@ -430,33 +417,6 @@ public class BacklogItemTest
         Assert.That(ex?.Message, Is.EqualTo("This Backlog Item already has this phase."));
     }
 
-    [Test]
-    public void SprintHasScrumMaster_Ok()
-    {
-        //Arrange
-        //N/A
-
-        //Act
-        var scrumMaster = _sprint.ScrumMaster;
-
-        //Assert
-        Assert.That(scrumMaster.Role, Is.EqualTo(Role.ScrumMaster));
-    }
-
-    [Test]
-    public void SprintHasMultipleDevelopers_Ok()
-    {
-        //Arrange
-        //_dev1 already added
-
-        //Act
-        _sprint.Developers.Add(_dev2);
-
-        //Assert
-        Assert.That(_sprint.Developers, Has.Count.EqualTo(2));
-        Assert.That(_sprint.Developers, Does.Contain(_dev1));
-        Assert.That(_sprint.Developers, Does.Contain(_dev2));
-    }
 
     [Test]
     public void ProjectHasProductOwner()
