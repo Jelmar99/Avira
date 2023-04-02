@@ -3,6 +3,7 @@
 using Avira.Domain;
 using Avira.Domain.Adapters;
 using Avira.Domain.Builder;
+using Avira.Domain.Exporters;
 using Avira.Domain.Notifications;
 
 Console.WriteLine("Hello, World!");
