@@ -4,7 +4,7 @@ public class Project
 {
     private Guid Id { get; }
     private ProductBacklog ProductBacklog { get; }
-    private List<Sprint>? Sprints { get; set; }
+    private List<Sprint>? Sprints { get; }
 
     private IVersionControl VersionControl;
 

@@ -6,20 +6,18 @@ public class Activity : IExport
 {
     private Guid Id { get; }
     public string Name { get; }
-    private ProductBacklog ProductBacklog { get; }
 
     public bool Done { get; set; }
 
-    public Activity(Guid id, string name, ProductBacklog productBacklog)
+    public Activity(Guid id, string name)
     {
         Id = id;
         Name = name;
-        ProductBacklog = productBacklog;
         Done = false;
     }
 
-    public void Accept(IVisitor visitor)
+    public string Accept(IVisitor visitor)
     {
-        visitor.VisitActivity(this);
+        return visitor.VisitActivity(this);
     }
 }

@@ -11,49 +11,61 @@ public class Exporter : IVisitor
     {
         ExportStrategy = exportStrategy;
     }
-    public void VisitSprint(Sprint sprint)
+    public string VisitSprint(Sprint sprint)
     {
-        ExportStrategy.ExportSprint(sprint);
+        var buildString = "";
+        buildString += ExportStrategy.ExportSprint(sprint) + "\n";
         foreach (var item in sprint.GetBacklogItems())
         {
-            item.Accept(this);
+            buildString += item.Accept(this);
         }
+
+        return buildString;
     }
 
-    public void VisitBacklogItem(BacklogItem backlogItem)
+    public string VisitBacklogItem(BacklogItem backlogItem)
     {
-        ExportStrategy.ExportBacklogItem(backlogItem);
+        var buildString = "";
+        buildString += ExportStrategy.ExportBacklogItem(backlogItem) + "\n";
         foreach (var comment in backlogItem.Comments)
         {
-            comment.Accept(this);
+            buildString += comment.Accept(this);
         }
 
         foreach (var activity in backlogItem.Activities)
         {
-            activity.Accept(this);
+            buildString += activity.Accept(this);
         }
+
+        return buildString;
     }
 
-    public void VisitComment(Comment comment)
+    public string VisitComment(Comment comment)
     {
-        ExportStrategy.ExportComment(comment);
+        var buildString = "";
+        buildString += ExportStrategy.ExportComment(comment)+ "\n";
         foreach (var item in comment.Replies)
         {
-            item.Accept(this);
+            buildString += item.Accept(this);
         }
+
+        return buildString;
     }
 
-    public void VisitActivity(Activity activity)
+    public string VisitActivity(Activity activity)
     {
-        ExportStrategy.ExportActivity(activity);
+        return ExportStrategy.ExportActivity(activity);
     }
 
-    public void VisitProductBacklog(ProductBacklog productBacklog)
+    public string VisitProductBacklog(ProductBacklog productBacklog)
     {
-        ExportStrategy.ExportProductBacklog(productBacklog);
+        var buildString = "";
+        buildString += ExportStrategy.ExportProductBacklog(productBacklog) + "\n";
         foreach (var item in productBacklog.GetBacklogItems())
         {
-            item.Accept(this);
+            buildString += item.Accept(this);
         }
+
+        return buildString;
     }
 }

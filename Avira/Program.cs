@@ -28,6 +28,7 @@ var testUser = new UserBuilder()
     .addNotificationPreference(NotificationPreferenceType.Email)
     .addNotificationPreference(NotificationPreferenceType.Slack)
     .Build();
+
 var productOwner = new UserBuilder()
     .setId(Guid.NewGuid())
     .setName("Piet")
@@ -40,24 +41,33 @@ var productOwner = new UserBuilder()
     .addNotificationPreference(NotificationPreferenceType.WhatsApp)
     .Build();
 
+var scrumMaster = new UserBuilder()
+    .setId(Guid.NewGuid())
+    .setName("Henk")
+    .setEmail("Henk@mail.com")
+    .setSlackUsername("@Henk84")
+    .setRole(Role.ScrumMaster)
+    .addNotificationPreference(NotificationPreferenceType.Slack)
+    .Build();
+
 var listDev = new List<User>{devUser};
 
-var a = new BacklogItem(Guid.NewGuid(), "", "", 0, 0, new Sprint(Guid.NewGuid(),"sprint1", new DateTime(), new DateTime(),listDev),
+var a = new BacklogItem(Guid.NewGuid(), "", "", 0, 0, new Sprint(Guid.NewGuid(),"sprint1", new DateTime(), new DateTime(),listDev, scrumMaster),
     devUser, testUser);
 var n = new Notification("A test notification!  :)");
 a.AddListener(devUser);
 a.SendNotification(n);
 
 
-var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev);
+var s = new Sprint(new Guid(),"sprint2", new DateTime(2023, 4, 2), new DateTime(2023, 4, 13), listDev, scrumMaster);
 var pb = new ProductBacklog(new Guid(), s);
 var pbi = new BacklogItem(Guid.NewGuid(), "test", "item about a test", 1, 3, s, devUser, testUser);
 var pbi2 = new BacklogItem(Guid.NewGuid(), "andere test", "item about a andere test", 1, 10, s, devUser, testUser);
 s.AddBacklogItem(pbi);
 s.AddBacklogItem(pbi2);
-var activity = new Activity(new Guid(), "Maak de hele app", pb);
-var comment = new Comment(new Guid(), "Wat een mooie comment");
-var reply = new Comment(new Guid(), "wat een stomme actie");
+var activity = new Activity(new Guid(), "Maak de hele app");
+var comment = new Comment(new Guid(), "Wat een mooie comment", pbi);
+var reply = new Comment(new Guid(), "wat een stomme actie", pbi);
 comment.ReplyToComment(reply);
 pbi.AddActivity(activity);
 pbi.AddComment(comment);
@@ -77,7 +87,7 @@ p.AddListener(devUser);
 s.Deploy();
 
 var exPlain = new Exporter(new PlainTextExportStrategy());
-s.Accept(exPlain);
+Console.WriteLine(s.Accept(exPlain));
 
 var exJson = new Exporter(new JSONExportStrategy());
-s.Accept(exJson);
+Console.WriteLine(s.Accept(exJson));

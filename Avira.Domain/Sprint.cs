@@ -17,7 +17,7 @@ public class Sprint : IExport
 
     private Pipeline Pipeline;
 
-    public Sprint(Guid id, string name, DateTime startDate, DateTime endDate, List<User> developers)
+    public Sprint(Guid id, string name, DateTime startDate, DateTime endDate, List<User> developers, User scrumMaster)
     {
         Id = id;
         Name = name;
@@ -26,7 +26,7 @@ public class Sprint : IExport
         BacklogItems = new List<BacklogItem>();
         Pipeline = new Pipeline(this);
         Developers = developers;
-        
+        ScrumMaster = scrumMaster;
     }
 
     public void CheckIfFinished()
@@ -51,7 +51,15 @@ public class Sprint : IExport
 
     public void SetStatus(Status status)
     {
-        Status = status;
+        if (DateTime.Now < StartDate)
+        {
+            Status = status;
+        }
+        else
+        {
+            throw new Exception("You can't change the status of a sprint that has already started.");
+        }
+        
     }
     public void SetName(string name)
     {
@@ -123,8 +131,8 @@ public class Sprint : IExport
     }
 
     // Visitor Pattern
-    public void Accept(IVisitor visitor)
+    public string Accept(IVisitor visitor)
     {
-        visitor.VisitSprint(this);
+        return visitor.VisitSprint(this);
     }
 }

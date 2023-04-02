@@ -7,20 +7,29 @@ public class Comment : IExport
     public Guid Id { get; }
     public string Text { get; }
     public List<Comment> Replies { get; set; }
+    private BacklogItem BacklogItem { get; }
 
-    public Comment(Guid id, string text)
+    public Comment(Guid id, string text, BacklogItem backlogItem)
     {
         Id = id;
         Text = text;
+        BacklogItem = backlogItem;
         Replies = new List<Comment>();
     }
     public void ReplyToComment(Comment comment)
     {
-        Replies.Add(comment);
+        if (BacklogItem.Phase != BacklogItemPhase.Done)
+        {
+            Replies.Add(comment);
+        }
+        else
+        {
+            throw new Exception("You can't reply to a comment on a Backlog Item that is in the 'Done' phase.");
+        }
     }
 
-    public void Accept(IVisitor visitor)
+    public string Accept(IVisitor visitor)
     {
-        visitor.VisitComment(this);
+        return visitor.VisitComment(this);
     }
 }
