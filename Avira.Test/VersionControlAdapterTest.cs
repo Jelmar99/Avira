@@ -89,11 +89,11 @@ public class VersionControlAdapterTest
         var consoleOutput = stringWriter.ToString();
         Assert.That(consoleOutput,
             Is.EqualTo(
-                "Committing to Github!\r\n" +
-                "Committing to Gitlab!\r\n" +
-                "Committing to AWS!\r\n" +
-                "Committing to Bitbucket!\r\n" +
-                "Committing to Azure DevOps!\r\n"));
+                "Committing to Github!\n" +
+                "Committing to Gitlab!\n" +
+                "Committing to AWS!\n" +
+                "Committing to Bitbucket!\n" +
+                "Committing to Azure DevOps!\n"));
     }
 
     [Test]
@@ -114,11 +114,11 @@ public class VersionControlAdapterTest
         var consoleOutput = stringWriter.ToString();
         Assert.That(consoleOutput,
             Is.EqualTo(
-                "Pushing to Github!\r\n" +
-                "Pushing to Gitlab!\r\n" +
-                "Pushing to AWS!\r\n" +
-                "Pushing to Bitbucket!\r\n" +
-                "Pushing to Azure DevOps!\r\n"));
+                "Pushing to Github!\n" +
+                "Pushing to Gitlab!\n" +
+                "Pushing to AWS!\n" +
+                "Pushing to Bitbucket!\n" +
+                "Pushing to Azure DevOps!\n"));
     }
 
     [Test]
@@ -139,10 +139,10 @@ public class VersionControlAdapterTest
         var consoleOutput = stringWriter.ToString();
         Assert.That(consoleOutput,
             Is.EqualTo(
-                "Pulling from Github!\r\n" +
-                "Pulling from Gitlab!\r\n" +
-                "Pulling from AWS!\r\n" +
-                "Pulling from Bitbucket!\r\n" +
-                "Pulling from Azure DevOps!\r\n"));
+                "Pulling from Github!\n" +
+                "Pulling from Gitlab!\n" +
+                "Pulling from AWS!\n" +
+                "Pulling from Bitbucket!\n" +
+                "Pulling from Azure DevOps!\n"));
     }
 }

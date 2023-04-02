@@ -75,9 +75,9 @@ public class NotificationTest
         var consoleOutput = stringWriter.ToString();
         Assert.That(consoleOutput,
             Is.EqualTo(
-                "Notification for Dev	Slack	: 'This notification is a test.'	To: @Developer\r\n" +
-                "Notification for Tester	Slack	: 'This notification is a test.'	To: @Tester\r\n" +
-                "Notification for Tester	Email	: 'This notification is a test.'	To: Tester@company.com\r\n"));
+                "Notification for Dev	Slack	: 'This notification is a test.'	To: @Developer\n" +
+                "Notification for Tester	Slack	: 'This notification is a test.'	To: @Tester\n" +
+                "Notification for Tester	Email	: 'This notification is a test.'	To: Tester@company.com\n"));
     }
 
     [Test]
@@ -98,7 +98,7 @@ public class NotificationTest
         var consoleOutput = stringWriter.ToString();
         Assert.That(consoleOutput,
             Is.EqualTo(
-                "Notification for Tester	Slack	: 'A new Backlog Item has become ready to test: TestBacklogItem (07d47cf6-06c5-41cc-b5b0-f73577b11788)'	To: @Tester\r\n" +
-                "Notification for Tester	Email	: 'A new Backlog Item has become ready to test: TestBacklogItem (07d47cf6-06c5-41cc-b5b0-f73577b11788)'	To: Tester@company.com\r\n"));
+                "Notification for Tester	Slack	: 'A new Backlog Item has become ready to test: TestBacklogItem (07d47cf6-06c5-41cc-b5b0-f73577b11788)'	To: @Tester\n" +
+                "Notification for Tester	Email	: 'A new Backlog Item has become ready to test: TestBacklogItem (07d47cf6-06c5-41cc-b5b0-f73577b11788)'	To: Tester@company.com\n"));
     }
 }

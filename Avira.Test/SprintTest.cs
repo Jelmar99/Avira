@@ -234,7 +234,7 @@ public class SprintTest
         var consoleOutput = stringWriter.ToString();
         Assert.That(consoleOutput,
             Is.EqualTo(
-                "Executing Phase Sources\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Package\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Build\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Test\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Analyse\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Deploy\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\nExecuting Phase Utility\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\r\n"));
+                "Executing Phase Sources\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\nExecuting Phase Package\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\nExecuting Phase Build\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\nExecuting Phase Test\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\nExecuting Phase Analyse\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\nExecuting Phase Deploy\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\nExecuting Phase Utility\tSprint: sprint2 running from 2-4-2023 to 13-4-2023\n"));
     }
 
     [Test]

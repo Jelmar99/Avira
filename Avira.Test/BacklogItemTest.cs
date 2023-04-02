@@ -186,7 +186,7 @@ public class BacklogItemTest
         var consoleOutput = stringWriter.ToString();
         Assert.That(consoleOutput,
             Is.EqualTo(
-                "Notification for Master	Slack	: 'An existing Backlog Item's Phase has been reverted to 'Todo': TestBacklogItem, (07d47cf6-06c5-41cc-b5b0-f73577b11787) by Dev'	To: @Master\r\n"));
+                "Notification for Master	Slack	: 'An existing Backlog Item's Phase has been reverted to 'Todo': TestBacklogItem, (07d47cf6-06c5-41cc-b5b0-f73577b11787) by Dev'	To: @Master\n"));
     }
 
     [Test]
