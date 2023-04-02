@@ -7,12 +7,12 @@ namespace Avira.Test;
 [TestFixture]
 public class BacklogItemTest
 {
-    private User _dev1;
-    private User _dev2;
-    private User _tester;
-    private User _scrumMaster;
-    private Sprint _sprint;
-
+    private User _dev1 = null!;
+    private User _dev2 = null!;
+    private User _tester = null!;
+    private User _scrumMaster = null!;
+    private Sprint _sprint = null!;
+    
     [SetUp]
     public void Setup()
     {

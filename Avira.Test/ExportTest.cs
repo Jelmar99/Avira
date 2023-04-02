@@ -7,11 +7,11 @@ namespace Avira.Test;
 [TestFixture]
 public class ExportTest
 {
-    private User _devUser;
-    private User _testUser;
-    private User _scrumMaster;
-    private ProductBacklog _productBacklog;
-    private Sprint _sprint;
+    private User _devUser = null!;
+    private User _testUser = null!;
+    private User _scrumMaster = null!;
+    private ProductBacklog _productBacklog = null!;
+    private Sprint _sprint = null!;
 
     [SetUp]
     public void Setup()
