@@ -83,7 +83,7 @@ public class ExportTest
         //Assert
         Assert.That(exportString,
             Is.EqualTo(
-                "Sprint: sprint2, running from 04/02/4023 00:00:00 to 04/02/4023 00:00:00\n-BacklogItem: andere test, with description: item about a andere test, assigned developer: Bob\n-BacklogItem: test, with description: item about a test, assigned developer: Bob\n--Comment: Wat een mooie comment\n--Comment: wat een stomme actie\n--Activity: Maak de hele app"));
+                "Sprint: sprint2, running from 04/02/4023 00:00:00 to 04/13/4023 00:00:00\n-BacklogItem: andere test, with description: item about a andere test, assigned developer: Bob\n-BacklogItem: test, with description: item about a test, assigned developer: Bob\n--Comment: Wat een mooie comment\n--Comment: wat een stomme actie\n--Activity: Maak de hele app"));
     }
 
     [Test]
