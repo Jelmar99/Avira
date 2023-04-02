@@ -14,6 +14,6 @@ public class GitLabAdapter : IVersionControl
 
     public void Pull()
     {
-        Console.WriteLine("Pulling to Gitlab!");
+        Console.WriteLine("Pulling from Gitlab!");
     }
 }

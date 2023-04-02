@@ -5,7 +5,7 @@ using Avira.Domain.Notifications;
 namespace Avira.Test;
 
 [TestFixture]
-public class ForumDiscussionUnitTest
+public class CommentTest
 {
     [Test]
     public void Test_AddComment()

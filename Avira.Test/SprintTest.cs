@@ -5,19 +5,22 @@ using Avira.Domain.Notifications;
 namespace Avira.Test;
 
 [TestFixture]
-public class SprintUnitTest
+public class SprintTest
 {
     private User _dev1;
     private User _dev2;
     private User _tester;
     private User _scrumMaster;
-    private ProductBacklog _productBacklog;
     private Sprint _sprint;
     private List<User> _listDev;
 
     [SetUp]
     public void Setup()
     {
+        var standardOutput = new StreamWriter(Console.OpenStandardOutput());
+        standardOutput.AutoFlush = true;
+        Console.SetOut(standardOutput);
+
         _dev1 = new UserBuilder()
             .setId(Guid.NewGuid())
             .setName("Dev")
@@ -67,9 +70,6 @@ public class SprintUnitTest
         var tomorrow = DateTime.Now.AddDays(1);
         _sprint = new Sprint(Guid.NewGuid(), "TestSprint", tomorrow, tomorrow.AddDays(14), new List<User> { _dev1 },
             _scrumMaster);
-
-        //Todo: fix
-        _productBacklog = new ProductBacklog(Guid.NewGuid(), _sprint);
     }
 
     [Test]

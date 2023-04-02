@@ -60,7 +60,7 @@ public class Exporter : IVisitor
     public string VisitProductBacklog(ProductBacklog productBacklog)
     {
         var buildString = "";
-        buildString += ExportStrategy.ExportProductBacklog(productBacklog);
+        buildString += ExportStrategy.ExportProductBacklog(productBacklog) + "\n";
         foreach (var item in productBacklog.GetBacklogItems())
         {
             buildString += item.Accept(this);

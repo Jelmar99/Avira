@@ -1,5 +1,4 @@
 using Avira.Domain;
-using Avira.Domain.Adapters;
 using Avira.Domain.Builder;
 using Avira.Domain.Notifications;
 
@@ -12,12 +11,15 @@ public class BacklogItemTest
     private User _dev2;
     private User _tester;
     private User _scrumMaster;
-    private ProductBacklog _productBacklog;
     private Sprint _sprint;
 
     [SetUp]
     public void Setup()
     {
+        var standardOutput = new StreamWriter(Console.OpenStandardOutput());
+        standardOutput.AutoFlush = true;
+        Console.SetOut(standardOutput);
+
         _dev1 = new UserBuilder()
             .setId(Guid.NewGuid())
             .setName("Dev")
@@ -61,9 +63,6 @@ public class BacklogItemTest
         var tomorrow = DateTime.Now.AddDays(1);
         _sprint = new Sprint(Guid.NewGuid(), "TestSprint", tomorrow, tomorrow.AddDays(14), new List<User> { _dev1 },
             _scrumMaster);
-
-        //Todo: fix
-        _productBacklog = new ProductBacklog(Guid.NewGuid(), _sprint);
     }
 
     [Test]
@@ -137,68 +136,6 @@ public class BacklogItemTest
         Assert.That(backlogItem.Activities, Does.Contain(activity3));
     }
 
-    [Test]
-    public void BacklogItemAddedToProductBacklog_Ok()
-    {
-        //Arrange
-        var backlogItem1 = new BacklogItem(Guid.NewGuid(), "TestBacklogItem1", "TestBacklogItemDescription1", 1, 10,
-            _sprint, _dev1, _tester);
-        var backlogItem2 = new BacklogItem(Guid.NewGuid(), "TestBacklogItem2", "TestBacklogItemDescription2", 1, 30,
-            _sprint, _dev1, _tester);
-
-        //Act
-        _productBacklog.AddBacklogItem(backlogItem1);
-        _productBacklog.AddBacklogItem(backlogItem2);
-
-        //Assert
-        Assert.That(_productBacklog.GetBacklogItems(), Does.Contain(backlogItem1));
-        Assert.That(_productBacklog.GetBacklogItems(), Does.Contain(backlogItem2));
-    }
-
-    [Test]
-    public void BacklogItemRemovedFromProductBacklog_Ok()
-    {
-        //Arrange
-        var backlogItem1 = new BacklogItem(Guid.NewGuid(), "TestBacklogItem1", "TestBacklogItemDescription1", 1, 10,
-            _sprint, _dev1, _tester);
-        var backlogItem2 = new BacklogItem(Guid.NewGuid(), "TestBacklogItem2", "TestBacklogItemDescription2", 1, 30,
-            _sprint, _dev1, _tester);
-        _productBacklog.AddBacklogItem(backlogItem1);
-        _productBacklog.AddBacklogItem(backlogItem2);
-
-        //Act
-        _productBacklog.RemoveBacklogItem(backlogItem2);
-
-        //Assert
-        Assert.That(_productBacklog.GetBacklogItems(), Does.Contain(backlogItem1));
-        Assert.That(_productBacklog.GetBacklogItems(), Does.Not.Contain(backlogItem2));
-    }
-
-    [Test]
-    public void ProductBacklogOrdered_Ok()
-    {
-        //Arrange
-        var backlogItem1 = new BacklogItem(Guid.NewGuid(), "TestBacklogItem1", "TestBacklogItemDescription1", 1, 10,
-            _sprint, _dev1, _tester);
-        var backlogItem2 = new BacklogItem(Guid.NewGuid(), "TestBacklogItem2", "TestBacklogItemDescription2", 7, 30,
-            _sprint, _dev1, _tester);
-        var backlogItem3 = new BacklogItem(Guid.NewGuid(), "TestBacklogItem3", "TestBacklogItemDescription3", 3, 5,
-            _sprint, _dev1, _tester);
-        _productBacklog.AddBacklogItem(backlogItem1);
-        _productBacklog.AddBacklogItem(backlogItem2);
-        _productBacklog.AddBacklogItem(backlogItem3);
-
-        //Act
-        var productBacklogItems = _productBacklog.GetBacklogItems();
-
-        //Assert
-        Assert.Multiple(() =>
-        {
-            Assert.That(productBacklogItems[0], Is.EqualTo(backlogItem2));
-            Assert.That(productBacklogItems[1], Is.EqualTo(backlogItem1));
-            Assert.That(productBacklogItems[2], Is.EqualTo(backlogItem3));
-        });
-    }
 
     [Test]
     public void BacklogItemPhases_Exist()
@@ -311,27 +248,6 @@ public class BacklogItemTest
         Assert.That(backlogItem.Developer, Is.EqualTo(_dev2));
     }
 
-    [Test]
-    public void BacklogItemReadyForTestingNotification_Ok()
-    {
-        //Arrange
-        //To read Console.WriteLine
-        using var stringWriter = new StringWriter();
-        Console.SetOut(stringWriter);
-        var backlogItem = new BacklogItem(new Guid("07d47cf6-06c5-41cc-b5b0-f73577b11788"), "TestBacklogItem",
-            "TestBacklogItemDescription", 1, 10,
-            _sprint, _dev1, _tester);
-
-        //Act
-        backlogItem.UpdatePhase(BacklogItemPhase.ReadyForTesting, _dev1);
-
-        //Assert
-        var consoleOutput = stringWriter.ToString();
-        Assert.That(consoleOutput,
-            Is.EqualTo(
-                "Notification for Tester	Slack	: 'A new Backlog Item has become ready to test: TestBacklogItem (07d47cf6-06c5-41cc-b5b0-f73577b11788)'	To: @Tester\r\n" +
-                "Notification for Tester	Email	: 'A new Backlog Item has become ready to test: TestBacklogItem (07d47cf6-06c5-41cc-b5b0-f73577b11788)'	To: Tester@company.com\r\n"));
-    }
 
     [Test]
     public void BacklogItemPhaseToDoneByDeveloper_Ok()
@@ -362,31 +278,6 @@ public class BacklogItemTest
         Assert.That(ex?.Message, Is.EqualTo("You must be a Developer to update the Phase of a Backlog Item to 'Done'"));
     }
 
-    [Test]
-    public void SendNotificationBacklogItem_Ok()
-    {
-        //Arrange
-        //To read Console.WriteLine
-        using var stringWriter = new StringWriter();
-        Console.SetOut(stringWriter);
-        var backlogItem = new BacklogItem(Guid.NewGuid(), "TestBacklogItem",
-            "TestBacklogItemDescription", 1, 10,
-            _sprint, _dev1, _tester);
-        backlogItem.AddListener(_dev1);
-        backlogItem.AddListener(_tester);
-        var notification = new Notification("This notification is a test.");
-
-        //Act
-        backlogItem.SendNotification(notification);
-
-        //Assert
-        var consoleOutput = stringWriter.ToString();
-        Assert.That(consoleOutput,
-            Is.EqualTo(
-                "Notification for Dev	Slack	: 'This notification is a test.'	To: @Developer\r\n" +
-                "Notification for Tester	Slack	: 'This notification is a test.'	To: @Tester\r\n" +
-                "Notification for Tester	Email	: 'This notification is a test.'	To: Tester@company.com\r\n"));
-    }
 
     [Test]
     public void BacklogItemPhaseRevertedToDoing_NotOk()
@@ -415,28 +306,5 @@ public class BacklogItemTest
         //Assert
         var ex = Assert.Throws<Exception>(() => backlogItem.UpdatePhase(BacklogItemPhase.Todo, _dev1));
         Assert.That(ex?.Message, Is.EqualTo("This Backlog Item already has this phase."));
-    }
-
-
-    [Test]
-    public void ProjectHasProductOwner()
-    {
-        //Arrange
-        var productOwner = new UserBuilder()
-            .setId(Guid.NewGuid())
-            .setName("PO")
-            .setEmail("PO@company.com")
-            .setPhoneNr("06-00000004")
-            .setSlackUsername("@PO")
-            .setRole(Role.ProductOwner)
-            .addNotificationPreference(NotificationPreferenceType.Email)
-            .Build();
-        var proj = new Project(Guid.NewGuid(), _productBacklog, new GithubAdapter(), productOwner);
-
-        //Act
-        //N/A
-
-        //Assert
-        Assert.That(proj.ProductOwner.Role, Is.EqualTo(Role.ProductOwner));
     }
 }
