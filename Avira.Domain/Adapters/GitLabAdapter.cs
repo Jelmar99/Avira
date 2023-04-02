@@ -1,19 +1,28 @@
-﻿namespace Avira.Domain.Adapters;
+﻿using Avira.Domain.VersionControl;
+
+namespace Avira.Domain.Adapters;
 
 public class GitLabAdapter : IVersionControl
 {
+    private readonly GitLabService _service;
+
+    public GitLabAdapter()
+    {
+        _service = new GitLabService();
+    }
+
     public void Commit()
     {
-        Console.WriteLine("Committing to Gitlab!");
+        _service.CommitToGitLab();
     }
 
     public void Push()
     {
-        Console.WriteLine("Pushing to Gitlab!");
+        _service.GitLabPush();
     }
 
     public void Pull()
     {
-        Console.WriteLine("Pulling from Gitlab!");
+        _service.GitLabPull();
     }
 }
