@@ -1,19 +1,19 @@
 namespace Avira.Domain.VersionControl;
 
-public class GitLabService
+public static class GitLabService
 {
     // Design pattern: Adapter
-    public void CommitToGitLab()
+    public static void CommitToGitLab()
     {
         Console.WriteLine("Committing to Gitlab!");
     }
 
-    public void GitLabPush()
+    public static void GitLabPush()
     {
         Console.WriteLine("Pushing to Gitlab!");
     }
 
-    public void GitLabPull()
+    public static void GitLabPull()
     {
         Console.WriteLine("Pulling from Gitlab!");
     }
