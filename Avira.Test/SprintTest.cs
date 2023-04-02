@@ -226,7 +226,6 @@ public class SprintTest
         var p = new Pipeline(sprint);
 
         // Act
-        //TODO: Je test hier de console writeline van de sprint deploy waarom addlistener dev? Hoort die hier niet getest te worden? Als ik de naam van de test zo lees
         p.AddListener(_dev1);
         sprint.Deploy();
 

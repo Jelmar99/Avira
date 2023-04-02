@@ -38,8 +38,7 @@ public class ProjectTest
         var tomorrow = DateTime.Now.AddDays(1);
         _sprint = new Sprint(Guid.NewGuid(), "TestSprint", tomorrow, tomorrow.AddDays(14), new List<User> { _dev1 },
             _scrumMaster);
-
-        //Todo: fix
+        
         _productBacklog = new ProductBacklog(Guid.NewGuid(), _sprint);
     }
 
